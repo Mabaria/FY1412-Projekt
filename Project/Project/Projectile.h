@@ -11,7 +11,6 @@ protected:
 	sf::Vector2f position;
 	sf::Vector2f gravity;
 
-
 public:
 	Projectile();
 	~Projectile();

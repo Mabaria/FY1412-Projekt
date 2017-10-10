@@ -134,6 +134,7 @@
     <ClInclude Include="RotateAimRightCommand.h" />
     <ClInclude Include="RoundProjectile.h" />
     <ClInclude Include="ShootCommand.h" />
+    <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="RotateAimRightCommand.cpp" />
     <ClCompile Include="RoundProjectile.cpp" />
     <ClCompile Include="ShootCommand.cpp" />
+    <ClCompile Include="Tank.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

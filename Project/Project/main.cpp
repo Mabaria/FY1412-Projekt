@@ -30,7 +30,7 @@ int main()
 		}
 
 		gm.update();
-		window.clear();
+		window.clear(sf::Color(255, 0, 255));
 		window.draw(gm);
 		window.display();
 	}

@@ -4,6 +4,7 @@
 
 #include <SFML\Graphics.hpp>
 #include "IInputHandler.h"
+#include "Tank.h"
 
 class GameManager : public sf::Drawable
 {
@@ -12,6 +13,9 @@ private:
 	sf::RectangleShape ground;
 	sf::RectangleShape player1Tank;
 	sf::RectangleShape player2Tank;
+
+	Tank player1;
+	Tank player2;
 
 	void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	
