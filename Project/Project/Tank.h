@@ -11,6 +11,11 @@ private:
 	sf::RectangleShape cannon;
 	sf::CircleShape wheels[4];
 
+	bool facingRight;
+
+	sf::Font dataFont;
+	sf::Text dataText;
+
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 public:
