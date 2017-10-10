@@ -7,7 +7,7 @@ RoundProjectile::RoundProjectile( float mass,  float radius, sf::Vector2f veloci
 								  float airDensity,  float airViscosity) {
 	this->mass = mass;
 	this->radius = radius;
-	this->area = radius * radius * (float)M_PI; // TODO: Fix a working constant for Pi
+	this->area = radius * radius * (float)M_PI; 
 	this->velocity = velocity;
 	this->gravity = gravity;
 	this->angleVelocity = angleVelocity;

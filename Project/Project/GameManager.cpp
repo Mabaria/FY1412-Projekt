@@ -44,7 +44,7 @@ void GameManager::update()
 	this->input->handleKeys();
 }
 
-void GameManager::clenup()
+void GameManager::cleanup()
 {
 	delete this->input;
 	delete this->player1RotateAimLeft;

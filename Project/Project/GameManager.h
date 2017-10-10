@@ -27,7 +27,7 @@ public:
 	~GameManager();
 
 	void update();
-	void clenup();
+	void cleanup();
 };
 
 #endif

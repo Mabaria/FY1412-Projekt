@@ -5,7 +5,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1440, 900), "Artelleri");
+	sf::RenderWindow window(sf::VideoMode(1440, 900), "Artilleri");
 	window.setVerticalSyncEnabled(true);
 
 	IGameTime* gameTime = new GameTime;
@@ -30,13 +30,13 @@ int main()
 		}
 
 		gm.update();
-		window.clear(sf::Color(255, 0, 255));
+		window.clear(sf::Color(135, 206, 250));
 		window.draw(gm);
 		window.display();
 	}
 
 	delete gameTime;
-	gm.clenup();
+	gm.cleanup();
 
 	return 0;
 }
