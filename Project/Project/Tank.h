@@ -16,6 +16,8 @@ private:
 public:
 	Tank(sf::Vector2f pos, sf::Color color, bool facingRight);
 	~Tank();
+
+	void rotateCannon(float angle);
 };
 
-#endif // !TANK_H
+#endif

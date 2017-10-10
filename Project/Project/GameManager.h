@@ -11,11 +11,14 @@ class GameManager : public sf::Drawable
 private:
 	IInputHandler* input;
 	sf::RectangleShape ground;
-	sf::RectangleShape player1Tank;
-	sf::RectangleShape player2Tank;
 
 	Tank player1;
 	Tank player2;
+
+	Command* player1RotateAimLeft;
+	Command* player1RotateAimRight;
+	Command* player2RotateAimLeft;
+	Command* player2RotateAimRight;
 
 	void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	

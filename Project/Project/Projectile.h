@@ -1,3 +1,6 @@
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
 
@@ -22,6 +25,6 @@ public:
 	float getPosition();
 
 	virtual float CalculateDragCoefficient(float reynold) = 0;
-
-
 };
+
+#endif
