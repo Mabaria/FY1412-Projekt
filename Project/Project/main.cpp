@@ -5,7 +5,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Artelleri");
+	sf::RenderWindow window(sf::VideoMode(1440, 900), "Artelleri");
 	window.setVerticalSyncEnabled(true);
 
 	IGameTime* gameTime = new GameTime;

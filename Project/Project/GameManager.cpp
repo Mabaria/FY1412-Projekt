@@ -17,15 +17,15 @@ GameManager::GameManager()
 	Locator::provide(input);
 
 	this->ground.setFillColor(sf::Color::Blue);
-	this->ground.setPosition(0, 550);
-	this->ground.setSize(sf::Vector2f(800.0f, 50.0f));
+	this->ground.setPosition(0, 850);
+	this->ground.setSize(sf::Vector2f(1440, 50.0f));
 
 	this->player1Tank.setFillColor(sf::Color::Green);
-	this->player1Tank.setPosition(50, 538);
+	this->player1Tank.setPosition(75, 838);
 	this->player1Tank.setSize(sf::Vector2f(25.0f, 12.0f));
 
 	this->player2Tank.setFillColor(sf::Color::Red);
-	this->player2Tank.setPosition(725, 538);
+	this->player2Tank.setPosition(1325, 838);
 	this->player2Tank.setSize(sf::Vector2f(25.0f, 12.0f));
 }
 
