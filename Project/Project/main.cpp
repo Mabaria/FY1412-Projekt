@@ -24,7 +24,7 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			//----Closes window if windows is closed manually or getExit returns true----
+			// Closes window if windows is closed manually
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
@@ -36,6 +36,7 @@ int main()
 	}
 
 	delete gameTime;
+	gm.clenup();
 
 	return 0;
 }
