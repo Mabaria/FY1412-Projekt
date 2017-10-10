@@ -17,7 +17,7 @@ public:
 	~Projectile();
 
 
-	virtual sf::Vector2f update(float dt) = 0; // Recieves delta t from main class and returns new position
+	virtual sf::Vector2f update() = 0; // returns new position
 
 	float getVelocity();
 	float getPosition();

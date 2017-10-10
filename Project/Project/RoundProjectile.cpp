@@ -1,6 +1,7 @@
 #include "RoundProjectile.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "Locator.h"
 
 RoundProjectile::RoundProjectile( float mass,  float radius, sf::Vector2f velocity, sf::Vector2f gravity, float angleVelocity,  float e,
 								  float airDensity,  float airViscosity) {
@@ -57,9 +58,11 @@ sf::Vector2f RoundProjectile::TotalAcceleration() {
 	return sf::Vector2f((forceVector.x / this->mass) + this->gravity.x, (forceVector.y / this->mass) + this->gravity.y); 
 }
 
-sf::Vector2f RoundProjectile::update(float dt) {
+sf::Vector2f RoundProjectile::update() {
 	sf::Vector2f acceleration = this->TotalAcceleration(); // This function calls and calculates all forces currently affecting the object and returns an acceleration vector
 	// r = r0 + vt + at^2 / 2
+	float dt = Locator::getGameTime()->getDeltaTime();
+
 	sf::Vector2f newPos = sf::Vector2f((this->position.x + (this->velocity.x * dt) + ((acceleration.x * pow(dt, 2)) / 2)),
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
 	// v = v0 + at

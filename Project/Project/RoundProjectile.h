@@ -18,5 +18,5 @@ public:
 	sf::Vector2f DragForce( float cd);
 	sf::Vector2f MagnusForce();
 	sf::Vector2f TotalAcceleration();
-	sf::Vector2f update( float dt);
+	sf::Vector2f update();
 };

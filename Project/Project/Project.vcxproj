@@ -122,11 +122,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameTime.h" />
+    <ClInclude Include="IGameTime.h" />
+    <ClInclude Include="IInputHandler.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Locator.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="RoundProjectile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Locator.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="RoundProjectile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
