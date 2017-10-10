@@ -10,7 +10,6 @@ GameManager::GameManager()
 {
 }
 
-
 GameManager::~GameManager()
 {
 }

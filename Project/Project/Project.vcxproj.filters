@@ -13,57 +13,93 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Commands">
+      <UniqueIdentifier>{d8a0cf59-599d-419f-b6ec-33e77a2d056b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Commands">
+      <UniqueIdentifier>{abf673e8-01bd-4076-9081-50df15470808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\General">
+      <UniqueIdentifier>{05142795-eb39-4c63-ace9-0c66a7f17678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\General">
+      <UniqueIdentifier>{eea54819-76e3-468d-8026-9e1a25ac664f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Projectiles">
+      <UniqueIdentifier>{6bf96239-c8b2-4712-a459-caa4872bd115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Projectiles">
+      <UniqueIdentifier>{10d1ac9f-bdff-4cd5-b026-2862adecd3b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Projectile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="RoundProjectile.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="RotateAimLeftCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="GameTime.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="RotateAimRightCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
+      <Filter>Header Files\General</Filter>
     </ClInclude>
     <ClInclude Include="IGameTime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Locator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\General</Filter>
     </ClInclude>
     <ClInclude Include="IInputHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\General</Filter>
     </ClInclude>
     <ClInclude Include="InputHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\General</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Locator.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="RoundProjectile.h">
+      <Filter>Header Files\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="RotateAimLeftCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="RoundProjectile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTime.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="RotateAimRightCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\General</Filter>
     </ClCompile>
-    <ClCompile Include="Locator.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>Source Files\General</Filter>
     </ClCompile>
     <ClCompile Include="InputHandler.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\General</Filter>
+    </ClCompile>
+    <ClCompile Include="Locator.cpp">
+      <Filter>Source Files\General</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="RoundProjectile.cpp">
+      <Filter>Source Files\Projectiles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

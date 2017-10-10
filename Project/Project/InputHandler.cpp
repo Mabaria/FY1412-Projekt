@@ -10,7 +10,6 @@ InputHandler::InputHandler()
 	{
 		this->stateCommands[i] = nullptr;
 	}
-
 }
 
 InputHandler::~InputHandler()
@@ -38,5 +37,13 @@ void InputHandler::handleKeys()
 			this->stateCommands[LEFT]->execute(tapKey[LEFT]);
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && tapKey[LEFT])
 			tapKey[LEFT] = false;
+	}
+
+	if (this->stateCommands[SPACE] != nullptr)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !tapKey[SPACE])
+			this->stateCommands[SPACE]->execute(tapKey[SPACE]);
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && tapKey[SPACE])
+			tapKey[SPACE] = false;
 	}
 }
