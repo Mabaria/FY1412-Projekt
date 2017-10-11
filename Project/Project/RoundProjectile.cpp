@@ -80,6 +80,7 @@ sf::Vector2f RoundProjectile::update() {
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
 	// v = v0 + at
 	this->velocity = this->velocity + acceleration * dt;
+	this->position = newPos;
 	this->sphere.setPosition(this->position);
 	return newPos;
 }

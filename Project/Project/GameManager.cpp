@@ -23,6 +23,10 @@ GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airVisco
 						 player1(sf::Vector2f(75.0f, 838.0f), sf::Color::Green, true),  
 						 player2(sf::Vector2f(1325.0f, 838.0f), sf::Color::Red, false)
 {
+	this->gravity = gravity;
+	this->airDensity = airDensity;
+	this->airViscosity = airViscosity;
+
 	this->input = new InputHandler;
 	Locator::provide(input);
 
@@ -50,9 +54,7 @@ GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airVisco
 	this->input->setCommand(ENTER, this->player2ShootProjectile);
 	this->input->setCommand(RCTRL, this->player2ChangeProjectile);
 
-	this->gravity = gravity;
-	this->airDensity = airDensity;
-	this->airViscosity = airViscosity;
+
 
 	this->ground.setFillColor(sf::Color::Blue);
 	this->ground.setPosition(0, 850);
