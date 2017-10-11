@@ -14,7 +14,7 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(this->player2);
 }
 
-GameManager::GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), float airDensity = 1.22f, float airViscosity = 0.00001827f) : 
+GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airViscosity) : 
 						 player1(sf::Vector2f(75.0f, 838.0f), sf::Color::Green, true),  
 						 player2(sf::Vector2f(1325.0f, 838.0f), sf::Color::Red, false)
 {

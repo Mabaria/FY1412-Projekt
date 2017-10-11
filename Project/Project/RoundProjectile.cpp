@@ -60,7 +60,7 @@ sf::Vector2f RoundProjectile::TotalAcceleration() {
 	return sf::Vector2f((forceVector.x / this->mass) + this->gravity.x, (forceVector.y / this->mass) + this->gravity.y); 
 }
 
-sf::Vector2f RoundProjectile::update(float dt) {
+sf::Vector2f RoundProjectile::update() {
 	sf::Vector2f acceleration = this->TotalAcceleration(); // This function calls and calculates all forces currently affecting the object and returns an acceleration vector
 	// r = r0 + vt + at^2 / 2
 	float dt = Locator::getGameTime()->getDeltaTime();
