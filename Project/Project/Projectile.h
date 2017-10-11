@@ -4,7 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
 
-class Projectile {
+class Projectile : public sf::Drawable{
+private:
+	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const = 0;
+
 protected:
 	float mass;
 	float radius;
@@ -13,6 +16,8 @@ protected:
 	sf::Vector2f velocity;
 	sf::Vector2f position;
 	sf::Vector2f gravity;
+
+	
 
 public:
 	Projectile();
@@ -24,7 +29,7 @@ public:
 	float getVelocity();
 	float getPosition();
 
-	virtual float CalculateDragCoefficient(float reynold) = 0;
+
 };
 
 #endif

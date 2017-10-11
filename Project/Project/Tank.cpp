@@ -96,9 +96,12 @@ void Tank::rotateCannon(float angle)
 	this->dataText.setString("Degrees: " + std::to_string(this->cannon.getRotation()));
 }
 
-void Tank::shootProjectile(sf::Vector2f &gravity, float airDensity, float airViscosity)
+void Tank::shootProjectile(sf::Vector2f &gravity, float airDensity, float airViscosity, Projectile* &activeProjectile)
 {
-	
+	if (activeProjectile == nullptr) {
+		sf::Vector2f direction = sf::Vector2f(cos(this->cannon.getRotation()), -sin(this->cannon.getRotation()));
+		activeProjectile = new RoundProjectile(airDensity, airViscosity, this->body.getPosition(), gravity, direction);
+	}
 }
 
 void Tank::changeProjectile()

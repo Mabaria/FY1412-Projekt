@@ -1,7 +1,7 @@
 #pragma once
 #ifndef TANK_H
 #define TANK_H
-
+#include "RoundProjectile.h"
 #include <SFML\Graphics.hpp>
 
 class Tank : public sf::Drawable
@@ -25,7 +25,7 @@ public:
 	void rotateCannon(float angle);
 	
 	void changeProjectile();
-	void shootProjectile(sf::Vector2f &gravity, float airDensity, float airViscosity);
+	void shootProjectile(sf::Vector2f &gravity, float airDensity, float airViscosity, Projectile* &activeProjectile);
 };
 
 #endif

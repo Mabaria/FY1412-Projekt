@@ -4,12 +4,11 @@
 #include "Locator.h"
 
 #define ROUNDPROJMASS 25
-#define ROUNDPROJVELOCITY 300
+#define ROUNDPROJVELOCITY 30
 #define ROUNDPROJRADIUS 0.10f
 #define ROUNDPROJANGLEVELOCITY 62.831f // 10 revolutions per second
 
-RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, float angleVelocity,
-								 float mass, float radius, sf::Vector2f direction) {
+RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction) {
 	this->mass = ROUNDPROJMASS;
 	this->radius = ROUNDPROJRADIUS;
 	this->position = position;
@@ -19,10 +18,18 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->angleVelocity = ROUNDPROJANGLEVELOCITY;
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
+
+	this->sphere.setFillColor(sf::Color::Black);
+	this->sphere.setRadius(10.0f);
+	this->sphere.setPosition(this->position);
 }
 
 RoundProjectile::~RoundProjectile() {
 
+}
+
+void RoundProjectile::draw(sf::RenderTarget & target, sf::RenderStates states) const {
+	target.draw(this->sphere);
 }
 
  float RoundProjectile::Reynold() {
@@ -73,5 +80,6 @@ sf::Vector2f RoundProjectile::update() {
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
 	// v = v0 + at
 	this->velocity = this->velocity + acceleration * dt;
+	this->sphere.setPosition(this->position);
 	return newPos;
 }

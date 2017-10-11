@@ -5,6 +5,7 @@
 #include <SFML\Graphics.hpp>
 #include "IInputHandler.h"
 #include "Tank.h"
+#include "Projectile.h"
 
 class GameManager : public sf::Drawable
 {
@@ -14,6 +15,8 @@ private:
 
 	Tank player1;
 	Tank player2;
+
+	Projectile* activeProjectile;
 
 	Command* player1RotateAimLeft;
 	Command* player1RotateAimRight;

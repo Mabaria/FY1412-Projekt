@@ -7,11 +7,12 @@ private:
 	float airDensity;
 	float airViscosity;
 
+	sf::CircleShape sphere;
 
+	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 public:
 
-	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, float angleVelocity,
-					float mass, float radius, sf::Vector2f direction);
+	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction);
 	~RoundProjectile();
 	 float Reynold();
 	 float DragCoefficient( float reynold);

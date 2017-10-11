@@ -14,6 +14,9 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(this->ground);
 	target.draw(player1);
 	target.draw(this->player2);
+	if (this->activeProjectile != nullptr) {
+		target.draw(*this->activeProjectile);
+	}
 }
 
 GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airViscosity) : 
@@ -23,15 +26,17 @@ GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airVisco
 	this->input = new InputHandler;
 	Locator::provide(input);
 
+	this->activeProjectile = nullptr;
+
 	this->player1RotateAimLeft = new RotateAimLeftCommand(&this->player1);
 	this->player1RotateAimRight = new RotateAimRightCommand(&this->player1);
 	
 	this->player1ChangeProjectile = new ChangeProjectileCommand(&this->player1);
 
-	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1, this->gravity, this->airDensity, this->airViscosity);
+	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1, this->gravity, this->airDensity, this->airViscosity, &this->activeProjectile);
 	this->player2RotateAimLeft = new RotateAimLeftCommand(&this->player2);
 	this->player2RotateAimRight = new RotateAimRightCommand(&this->player2);
-	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2, this->gravity, this->airDensity, this->airViscosity);
+	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2, this->gravity, this->airDensity, this->airViscosity, &this->activeProjectile);
 	
 	this->player2ChangeProjectile = new ChangeProjectileCommand(&this->player2);
 
@@ -61,6 +66,9 @@ GameManager::~GameManager()
 void GameManager::update()
 {
 	this->input->handleKeys();
+	if (this->activeProjectile != nullptr) {
+		this->activeProjectile->update();
+	}
 }
 
 void GameManager::cleanup()
