@@ -14,8 +14,9 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(this->player2);
 }
 
-GameManager::GameManager() : player1(sf::Vector2f(75.0f, 838.0f), sf::Color::Green, true),
-							 player2(sf::Vector2f(1325.0f, 838.0f), sf::Color::Red, false)
+GameManager::GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), float airDensity = 1.22f, float airViscosity = 0.00001827f) : 
+						 player1(sf::Vector2f(75.0f, 838.0f), sf::Color::Green, true),  
+						 player2(sf::Vector2f(1325.0f, 838.0f), sf::Color::Red, false)
 {
 	this->input = new InputHandler;
 	Locator::provide(input);
@@ -29,6 +30,10 @@ GameManager::GameManager() : player1(sf::Vector2f(75.0f, 838.0f), sf::Color::Gre
 	this->input->setCommand(D, this->player1RotateAimRight);
 	this->input->setCommand(LEFT, this->player2RotateAimLeft);
 	this->input->setCommand(RIGHT, this->player2RotateAimRight);
+
+	this->gravity = gravity;
+	this->airDensity = airDensity;
+	this->airViscosity = airViscosity;
 
 	this->ground.setFillColor(sf::Color::Blue);
 	this->ground.setPosition(0, 850);

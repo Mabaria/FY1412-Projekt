@@ -12,6 +12,7 @@ RoundProjectile::RoundProjectile( float mass,  float radius, sf::Vector2f positi
 	this->velocity = velocity;
 	this->gravity = gravity;
 	this->angleVelocity = angleVelocity;
+	this->e = e;
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
 }
