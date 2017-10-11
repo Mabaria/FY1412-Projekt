@@ -4,6 +4,7 @@
 #include "RotateAimLeftCommand.h"
 #include "RotateAimRightCommand.h"
 #include "ShootProjectileCommand.h"
+#include "ChangeProjectileCommand.h"
 #include <iostream>
 
 
@@ -25,16 +26,22 @@ GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airVisco
 	this->player1RotateAimLeft = new RotateAimLeftCommand(&this->player1);
 	this->player1RotateAimRight = new RotateAimRightCommand(&this->player1);
 	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1);
+	this->player1ChangeProjectile = new ChangeProjectileCommand(&this->player1);
+
 	this->player2RotateAimLeft = new RotateAimLeftCommand(&this->player2);
 	this->player2RotateAimRight = new RotateAimRightCommand(&this->player2);
 	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2);
+	this->player2ChangeProjectile = new ChangeProjectileCommand(&this->player2);
 
 	this->input->setCommand(A, this->player1RotateAimLeft);
 	this->input->setCommand(D, this->player1RotateAimRight);
 	this->input->setCommand(SPACE, this->player1ShootProjectile);
+	this->input->setCommand(E, this->player1ChangeProjectile);
+
 	this->input->setCommand(LEFT, this->player2RotateAimLeft);
 	this->input->setCommand(RIGHT, this->player2RotateAimRight);
 	this->input->setCommand(ENTER, this->player2ShootProjectile);
+	this->input->setCommand(RCTRL, this->player2ChangeProjectile);
 
 	this->gravity = gravity;
 	this->airDensity = airDensity;

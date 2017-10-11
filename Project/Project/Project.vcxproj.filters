@@ -72,6 +72,9 @@
     <ClInclude Include="ShootProjectileCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="ChangeProjectileCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RotateAimLeftCommand.cpp">
@@ -105,6 +108,9 @@
       <Filter>Source Files\General</Filter>
     </ClCompile>
     <ClCompile Include="ShootProjectileCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeProjectileCommand.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>

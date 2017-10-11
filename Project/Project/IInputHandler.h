@@ -5,8 +5,8 @@
 #include "Command.h"
 #include "SFML\Graphics.hpp"
 
-enum KEY { D, A, SPACE, RIGHT, LEFT, ENTER };
-const int NUM_KEYS = 6;
+enum KEY { D, A, SPACE, RIGHT, LEFT, ENTER, E, RCTRL };
+const int NUM_KEYS = 8;
 
 class IInputHandler
 {

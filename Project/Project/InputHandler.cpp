@@ -76,4 +76,22 @@ void InputHandler::handleKeys()
 			tapKey[SPACE] = false;
 		}
 	}
+
+	if (this->stateCommands[E] != nullptr) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !tapKey[E]) {
+			this->stateCommands[E]->execute(tapKey[E]);
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::E) && tapKey[E]) {
+			tapKey[E] = false;
+		}
+	}
+
+	if (this->stateCommands[RCTRL] != nullptr) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && !tapKey[RCTRL]) {
+			this->stateCommands[RCTRL]->execute(tapKey[RCTRL]);
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && tapKey[RCTRL]) {
+			tapKey[RCTRL] = false;
+		}
+	}
 }

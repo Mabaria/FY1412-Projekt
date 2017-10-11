@@ -24,6 +24,7 @@ public:
 
 	void rotateCannon(float angle);
 	void shootProjectile();
+	void changeProjectile();
 };
 
 #endif

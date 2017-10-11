@@ -100,3 +100,8 @@ void Tank::shootProjectile()
 {
 	
 }
+
+void Tank::changeProjectile()
+{
+	
+}

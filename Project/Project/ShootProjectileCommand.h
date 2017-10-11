@@ -4,6 +4,7 @@
 
 #include "Command.h"
 #include "Tank.h"
+
 class ShootProjectileCommand : public Command
 {
 	Tank* tank;
