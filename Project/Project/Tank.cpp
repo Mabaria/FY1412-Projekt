@@ -99,8 +99,11 @@ void Tank::rotateCannon(float angle)
 void Tank::shootProjectile(sf::Vector2f &gravity, float airDensity, float airViscosity, Projectile* &activeProjectile)
 {
 	if (activeProjectile == nullptr) {
-
-		sf::Vector2f direction = sf::Vector2f(cos(this->cannon.getRotation()*3.14159265358f/180.0f), sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
+		sf::Vector2f direction;
+		if(this->facingRight)
+			direction = sf::Vector2f(cos(this->cannon.getRotation()*3.14159265358f/180.0f), sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
+		else
+			direction = sf::Vector2f(-cos(this->cannon.getRotation()*3.14159265358f / 180.0f), -sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
 		activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction);
 	}
 }
