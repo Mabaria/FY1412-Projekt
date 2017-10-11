@@ -51,14 +51,16 @@ void RoundProjectile::draw(sf::RenderTarget & target, sf::RenderStates states) c
  float RoundProjectile::DragCoefficient( float reynold){
 	// http://pages.mtu.edu/~fmorriso/DataCorrelationForSphereDrag2016.pdf
 	 float cd1, cd2, cd3, cd4, cdtotal;
-	 if (reynold < 4.1f) {
-		 cd1 = 1;
+	 if (reynold < 0.01f) {
+		 cdtotal = 5000;
 	 }
+	 else {
 		 cd1 = 24 / reynold;
 		 cd2 = (2.6f*(reynold*0.2f)) / (1 + pow((reynold*0.2f), 1.52f));
 		 cd3 = (0.411f*pow(reynold / 263000, -7.94f)) / (1 + pow(reynold / 263000, -8));
 		 cd4 = (0.00000025f * reynold) / (1 + 0.000001f*reynold);
 		 cdtotal = cd1 + cd2 + cd3 + cd4;
+	 }
 
 
 	 return cdtotal;
@@ -67,12 +69,18 @@ void RoundProjectile::draw(sf::RenderTarget & target, sf::RenderStates states) c
 sf::Vector2f RoundProjectile::DragForce( float cd) {
 	// Fd = -0.5 * Cd * airDensity * area * speed^2
 	float speed = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
+	if (speed < 0.5f) {
+		return sf::Vector2f(0.0f, 0.0f);
+	}
 	float force = -0.5f * cd * this->airDensity * this->area * pow(speed, 2);
 	return sf::Vector2f((this->velocity.x / speed) * force, (this->velocity.y / speed) * force); // This returns the air resistance force vector, direction will be opposite the velocity vector
 }
 
 sf::Vector2f RoundProjectile::MagnusForce() {
 	float speed = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
+	if (speed < 0.5f) {
+		return sf::Vector2f(0.0f, 0.0f);
+	}
 	float cm = (this->radius * this->angleVelocity) / speed; // Magnus coefficient for spherical objects
 	float force = 0.5f * cm * this->airDensity * pow(speed, 2) * this->area;
 	return sf::Vector2f(-(this->velocity.y / speed) * force, (this->velocity.x / speed) * force); 

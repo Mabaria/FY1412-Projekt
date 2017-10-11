@@ -35,7 +35,7 @@ private:
 	void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	
 public:
-	GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), float airDensity = 100.22f, float airViscosity = 10.00001827f);
+	GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), float airDensity = 0.0022f, float airViscosity = 100.00001827f);
 	~GameManager();
 
 	void update();
