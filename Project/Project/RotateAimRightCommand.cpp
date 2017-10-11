@@ -9,5 +9,5 @@ RotateAimRightCommand::RotateAimRightCommand(Tank* tank)
 
 void RotateAimRightCommand::execute(bool & tapKey)
 {
-	this->tank->rotateCannon(10);
+	this->tank->rotateCannon(20);
 }

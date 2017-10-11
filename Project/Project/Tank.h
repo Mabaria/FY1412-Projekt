@@ -23,6 +23,7 @@ public:
 	~Tank();
 
 	void rotateCannon(float angle);
+	void shootProjectile();
 };
 
 #endif

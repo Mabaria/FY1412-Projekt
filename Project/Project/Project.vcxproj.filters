@@ -60,9 +60,6 @@
     <ClInclude Include="Locator.h">
       <Filter>Header Files\General</Filter>
     </ClInclude>
-    <ClInclude Include="ShootCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Header Files\Projectiles</Filter>
     </ClInclude>
@@ -71,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="Tank.h">
       <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootProjectileCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +95,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files\General</Filter>
     </ClCompile>
-    <ClCompile Include="ShootCommand.cpp">
-      <Filter>Source Files\Commands</Filter>
-    </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Source Files\Projectiles</Filter>
     </ClCompile>
@@ -106,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="Tank.cpp">
       <Filter>Source Files\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootProjectileCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
