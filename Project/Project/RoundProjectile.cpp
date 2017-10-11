@@ -4,7 +4,7 @@
 #include "Locator.h"
 
 #define ROUNDPROJMASS 25
-#define ROUNDPROJVELOCITY 30
+#define ROUNDPROJVELOCITY 119
 #define ROUNDPROJRADIUS 0.10f
 #define ROUNDPROJANGLEVELOCITY 62.831f // 10 revolutions per second
 
