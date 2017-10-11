@@ -17,8 +17,10 @@ private:
 
 	Command* player1RotateAimLeft;
 	Command* player1RotateAimRight;
+	Command* player1ShootProjectile;
 	Command* player2RotateAimLeft;
 	Command* player2RotateAimRight;
+	Command* player2ShootProjectile;
 
 	sf::Vector2f gravity;
 	float airDensity;

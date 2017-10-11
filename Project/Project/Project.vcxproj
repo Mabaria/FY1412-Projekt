@@ -133,7 +133,7 @@
     <ClInclude Include="RotateAimLeftCommand.h" />
     <ClInclude Include="RotateAimRightCommand.h" />
     <ClInclude Include="RoundProjectile.h" />
-    <ClInclude Include="ShootCommand.h" />
+    <ClInclude Include="ShootProjectileCommand.h" />
     <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +146,7 @@
     <ClCompile Include="RotateAimLeftCommand.cpp" />
     <ClCompile Include="RotateAimRightCommand.cpp" />
     <ClCompile Include="RoundProjectile.cpp" />
-    <ClCompile Include="ShootCommand.cpp" />
+    <ClCompile Include="ShootProjectileCommand.cpp" />
     <ClCompile Include="Tank.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
