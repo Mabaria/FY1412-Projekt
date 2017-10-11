@@ -100,3 +100,8 @@ void Tank::shootProjectile(sf::Vector2f &gravity, float airDensity, float airVis
 {
 	
 }
+
+void Tank::changeProjectile()
+{
+	
+}
