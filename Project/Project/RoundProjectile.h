@@ -8,6 +8,8 @@ private:
 	float airViscosity;
 
 	sf::CircleShape sphere;
+	sf::Font dataFont;
+	sf::Text dataText;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 public:

@@ -4,9 +4,9 @@
 #include "Locator.h"
 
 #define ROUNDPROJMASS 25
-#define ROUNDPROJVELOCITY 119
+#define ROUNDPROJVELOCITY 70
 #define ROUNDPROJRADIUS 0.10f
-#define ROUNDPROJANGLEVELOCITY 62.831f // 10 revolutions per second
+#define ROUNDPROJANGLEVELOCITY 0.0f // 10 revolutions per second
 
 RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction) {
 	this->mass = ROUNDPROJMASS;
@@ -22,6 +22,14 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->sphere.setFillColor(sf::Color::Black);
 	this->sphere.setRadius(10.0f);
 	this->sphere.setPosition(this->position);
+
+	this->dataFont.loadFromFile("Resources\\Fonts\\arial.ttf");
+	this->dataText.setFont(this->dataFont);
+	this->dataText.setCharacterSize(12);
+
+	this->dataText.setString("Drag force: 0");
+	this->dataText.setOrigin(sf::Vector2f(this->dataText.getGlobalBounds().left + this->dataText.getGlobalBounds().width, 0.0f));
+	this->dataText.setPosition(sf::Vector2f(1000.0f, 200.0f));
 }
 
 RoundProjectile::~RoundProjectile() {
@@ -30,23 +38,30 @@ RoundProjectile::~RoundProjectile() {
 
 void RoundProjectile::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(this->sphere);
+	target.draw(this->dataText);
 }
 
  float RoundProjectile::Reynold() {
 	// Re = (airDensity * characteristic length * velocity) / airViscosity
 	// characteristic length is 2*radius because the object is spherical
-	 float speed = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
+	float speed = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
 	return ((this->airDensity * this->radius * 2 * speed) / this->airViscosity);
 }
 
  float RoundProjectile::DragCoefficient( float reynold){
 	// http://pages.mtu.edu/~fmorriso/DataCorrelationForSphereDrag2016.pdf
-	 float cd1 = 24/reynold;
-	 float cd2 = (2.6f*(reynold*0.2f)) / (1 + pow((reynold*0.2f), 1.52f));
-	 float cd3 = (0.411f*pow(reynold/263000,-7.94f)) / (1 + pow(reynold/263000,-8));
-	 float cd4 = (0.00000025f * reynold) / (1 + 0.000001f*reynold);
+	 float cd1, cd2, cd3, cd4, cdtotal;
+	 if (reynold < 4.1f) {
+		 cd1 = 1;
+	 }
+		 cd1 = 24 / reynold;
+		 cd2 = (2.6f*(reynold*0.2f)) / (1 + pow((reynold*0.2f), 1.52f));
+		 cd3 = (0.411f*pow(reynold / 263000, -7.94f)) / (1 + pow(reynold / 263000, -8));
+		 cd4 = (0.00000025f * reynold) / (1 + 0.000001f*reynold);
+		 cdtotal = cd1 + cd2 + cd3 + cd4;
 
-	return (cd1 + cd2 + cd3 + cd4);
+
+	 return cdtotal;
 }
 
 sf::Vector2f RoundProjectile::DragForce( float cd) {
@@ -67,6 +82,10 @@ sf::Vector2f RoundProjectile::MagnusForce() {
 
 sf::Vector2f RoundProjectile::TotalAcceleration() {
 	sf::Vector2f forceVector = this->DragForce(this->DragCoefficient(this->Reynold())) + this->MagnusForce();
+	this->dataText.setString("Drag force: " + std::to_string(sqrt(pow(forceVector.x, 2) + pow(forceVector.y, 2))) +
+		"\nReynold: " + std::to_string(this->Reynold()) +
+		"\nCD: " + std::to_string(this->DragCoefficient(this->Reynold())) +
+		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))));
 	// F/m = a, apply to forceVector and add gravity acceleration
 	return sf::Vector2f((forceVector.x / this->mass) + this->gravity.x, (forceVector.y / this->mass) + this->gravity.y); 
 }

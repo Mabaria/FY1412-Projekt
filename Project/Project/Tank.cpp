@@ -101,7 +101,7 @@ void Tank::shootProjectile(sf::Vector2f &gravity, float airDensity, float airVis
 	if (activeProjectile == nullptr) {
 
 		sf::Vector2f direction = sf::Vector2f(cos(this->cannon.getRotation()*3.14159265358f/180.0f), sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
-		activeProjectile = new RoundProjectile(airDensity, airViscosity, this->body.getPosition(), gravity, direction);
+		activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction);
 	}
 }
 
