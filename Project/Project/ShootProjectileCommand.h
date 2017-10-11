@@ -7,9 +7,11 @@
 class ShootProjectileCommand : public Command
 {
 	Tank* tank;
-
+	sf::Vector2f gravity;
+	float airDensity;
+	float airViscosity;
 public:
-	ShootProjectileCommand(Tank* tank);
+	ShootProjectileCommand(Tank* tank, sf::Vector2f &gravity, float airDensity, float airViscosity);
 	virtual void execute(bool &tapKey);
 };
 

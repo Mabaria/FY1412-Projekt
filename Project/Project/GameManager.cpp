@@ -24,10 +24,10 @@ GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airVisco
 
 	this->player1RotateAimLeft = new RotateAimLeftCommand(&this->player1);
 	this->player1RotateAimRight = new RotateAimRightCommand(&this->player1);
-	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1);
+	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1, this->gravity, this->airDensity, this->airViscosity);
 	this->player2RotateAimLeft = new RotateAimLeftCommand(&this->player2);
 	this->player2RotateAimRight = new RotateAimRightCommand(&this->player2);
-	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2);
+	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2, this->gravity, this->airDensity, this->airViscosity);
 
 	this->input->setCommand(A, this->player1RotateAimLeft);
 	this->input->setCommand(D, this->player1RotateAimRight);

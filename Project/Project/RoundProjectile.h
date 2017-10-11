@@ -10,8 +10,8 @@ private:
 
 public:
 
-	RoundProjectile( float mass,  float radius, sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f gravity, float angleVelocity,  float e,
-					 float airDensity,  float airViscosity);
+	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, float angleVelocity,
+					float mass, float radius, sf::Vector2f direction);
 	~RoundProjectile();
 	 float Reynold();
 	 float DragCoefficient( float reynold);

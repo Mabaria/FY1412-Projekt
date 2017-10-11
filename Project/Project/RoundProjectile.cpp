@@ -3,16 +3,20 @@
 #include <math.h>
 #include "Locator.h"
 
-RoundProjectile::RoundProjectile( float mass,  float radius, sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f gravity, float angleVelocity,  float e,
-								  float airDensity,  float airViscosity) {
-	this->mass = mass;
-	this->radius = radius;
+#define ROUNDPROJMASS 25
+#define ROUNDPROJVELOCITY 300
+#define ROUNDPROJRADIUS 0.10f
+#define ROUNDPROJANGLEVELOCITY 62.831f // 10 revolutions per second
+
+RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, float angleVelocity,
+								 float mass, float radius, sf::Vector2f direction) {
+	this->mass = ROUNDPROJMASS;
+	this->radius = ROUNDPROJRADIUS;
 	this->position = position;
-	this->area = radius * radius * (float)M_PI; 
-	this->velocity = velocity;
+	this->area = this->radius * this->radius * (float)M_PI; 
+	this->velocity = sf::Vector2f(direction.x * ROUNDPROJVELOCITY, direction.y * ROUNDPROJVELOCITY);
 	this->gravity = gravity;
-	this->angleVelocity = angleVelocity;
-	this->e = e;
+	this->angleVelocity = ROUNDPROJANGLEVELOCITY;
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
 }

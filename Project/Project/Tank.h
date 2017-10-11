@@ -23,7 +23,7 @@ public:
 	~Tank();
 
 	void rotateCannon(float angle);
-	void shootProjectile();
+	void shootProjectile(sf::Vector2f &gravity, float airDensity, float airViscosity);
 };
 
 #endif
