@@ -11,7 +11,6 @@ private:
 protected:
 	float mass;
 	float radius;
-	float e;  // Coefficient of restitution 
 	
 	sf::Vector2f velocity;
 	sf::Vector2f position;
