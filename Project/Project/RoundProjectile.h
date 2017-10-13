@@ -8,7 +8,7 @@ private:
 	float airViscosity;
 	float momOfInertia;
 
-	sf::Vector2f airSpeed;
+	sf::Vector2f windSpeed;
 
 	sf::CircleShape sphere;
 	sf::Font dataFont;
@@ -18,7 +18,7 @@ private:
 	float ViscousTorque(); // Returns the angular acceleration due to viscous torque
 public:
 
-	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f airSpeed);
+	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed);
 	~RoundProjectile();
 	 float Reynold();
 	 float DragCoefficient( float reynold);

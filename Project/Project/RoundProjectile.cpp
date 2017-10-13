@@ -3,12 +3,12 @@
 #include <math.h>
 #include "Locator.h"
 
-#define ROUNDPROJMASS 80
-#define ROUNDPROJVELOCITY 180
+#define ROUNDPROJMASS 100
+#define ROUNDPROJVELOCITY 150
 #define ROUNDPROJRADIUS 0.40f
-#define ROUNDPROJANGLEVELOCITY -10.00f 
+#define ROUNDPROJANGLEVELOCITY 10.00f 
 
-RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f airSpeed) {
+RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed) {
 	this->mass = ROUNDPROJMASS;
 	this->radius = ROUNDPROJRADIUS;
 	this->momOfInertia = 0.4f * this->mass * pow(this->radius, 2);
@@ -16,7 +16,7 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->area = this->radius * this->radius * (float)M_PI; 
 	this->velocity = sf::Vector2f(direction.x * ROUNDPROJVELOCITY, direction.y * ROUNDPROJVELOCITY);
 	this->gravity = sf::Vector2f(gravity.x*ROUNDPROJMASS, gravity.y*ROUNDPROJMASS);
-	this->airSpeed = airSpeed;
+	this->windSpeed = windSpeed;
 	this->angleVelocity = ROUNDPROJANGLEVELOCITY;
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
@@ -78,7 +78,7 @@ float RoundProjectile::ViscousTorque()
 }
 
 sf::Vector2f RoundProjectile::DragForce( float cd) {
-	sf::Vector2f relativeSpeed = this->velocity - this->airSpeed;
+	sf::Vector2f relativeSpeed = this->velocity - this->windSpeed;
 	// Fd = -0.5 * Cd * airDensity * area * speed^2
 	float speed = sqrt(pow(relativeSpeed.x, 2) + pow(relativeSpeed.y, 2));
 	if (speed < 0.5f) {
