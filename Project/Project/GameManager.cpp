@@ -56,7 +56,7 @@ GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airVisco
 
 
 
-	this->ground.setFillColor(sf::Color::Blue);
+	this->ground.setFillColor(sf::Color(1,142,14));
 	this->ground.setPosition(0, 850);
 	this->ground.setSize(sf::Vector2f(1440, 50.0f));
 }

@@ -3,10 +3,10 @@
 #include <math.h>
 #include "Locator.h"
 
-#define ROUNDPROJMASS 20
-#define ROUNDPROJVELOCITY 100
-#define ROUNDPROJRADIUS 0.30f
-#define ROUNDPROJANGLEVELOCITY 0.0f // 10 revolutions per second
+#define ROUNDPROJMASS 800
+#define ROUNDPROJVELOCITY 400
+#define ROUNDPROJRADIUS 1.50f
+#define ROUNDPROJANGLEVELOCITY 12.6f 
 
 RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction) {
 	this->mass = ROUNDPROJMASS;
@@ -89,8 +89,9 @@ sf::Vector2f RoundProjectile::MagnusForce() {
 }
 
 sf::Vector2f RoundProjectile::TotalAcceleration() {
-	sf::Vector2f forceVector = this->DragForce(this->DragCoefficient(this->Reynold())) + this->MagnusForce()+this->gravity;
-	this->dataText.setString("Drag force: " + std::to_string(sqrt(pow(forceVector.x, 2) + pow(forceVector.y, 2))) +
+	sf::Vector2f dragForce = this->DragForce(this->DragCoefficient(this->Reynold()));
+	sf::Vector2f forceVector = dragForce + this->MagnusForce() + this->gravity;
+	this->dataText.setString("Drag force: " + std::to_string(sqrt(pow(dragForce.x, 2) + pow(dragForce.y, 2))) +
 		"\nReynold: " + std::to_string(this->Reynold()) +
 		"\nCD: " + std::to_string(this->DragCoefficient(this->Reynold())) +
 		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))));
@@ -101,7 +102,7 @@ sf::Vector2f RoundProjectile::TotalAcceleration() {
 sf::Vector2f RoundProjectile::update() {
 	sf::Vector2f acceleration = this->TotalAcceleration(); // This function calls and calculates all forces currently affecting the object and returns an acceleration vector
 	// r = r0 + vt + at^2 / 2
-	float dt = Locator::getGameTime()->getDeltaTime();
+	float dt = 4 * Locator::getGameTime()->getDeltaTime();
 
 	sf::Vector2f newPos = sf::Vector2f((this->position.x + (this->velocity.x * dt) + ((acceleration.x * pow(dt, 2)) / 2)),
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
