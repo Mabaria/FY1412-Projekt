@@ -13,7 +13,7 @@ float Projectile::getVelocity()
 	return 0.0f;
 }
 
-float Projectile::getPosition()
+sf::Vector2f Projectile::getPosition()
 {
-	return 0.0f;
+	return this->position;
 }

@@ -4,13 +4,14 @@
 #include "Locator.h"
 
 #define ROUNDPROJMASS 800
-#define ROUNDPROJVELOCITY 400
-#define ROUNDPROJRADIUS 1.50f
-#define ROUNDPROJANGLEVELOCITY 12.6f 
+#define ROUNDPROJVELOCITY 220 
+#define ROUNDPROJRADIUS 1.00f
+#define ROUNDPROJANGLEVELOCITY -7.88f 
 
 RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction) {
 	this->mass = ROUNDPROJMASS;
 	this->radius = ROUNDPROJRADIUS;
+	this->momOfInertia = 0.4f * this->mass * pow(this->radius, 2);
 	this->position = position;
 	this->area = this->radius * this->radius * (float)M_PI; 
 	this->velocity = sf::Vector2f(direction.x * ROUNDPROJVELOCITY, direction.y * ROUNDPROJVELOCITY);
@@ -39,6 +40,15 @@ RoundProjectile::~RoundProjectile() {
 void RoundProjectile::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(this->sphere);
 	target.draw(this->dataText);
+}
+
+float RoundProjectile::ViscousTorque()
+{
+
+	float vTorque = -8 * M_PI * pow(this->radius, 3) * this->airViscosity * this->angleVelocity;
+	// Angular acceleration = torque / I
+	float angAcc = vTorque / this->momOfInertia;
+	return angAcc;
 }
 
  float RoundProjectile::Reynold() {
@@ -94,7 +104,8 @@ sf::Vector2f RoundProjectile::TotalAcceleration() {
 	this->dataText.setString("Drag force: " + std::to_string(sqrt(pow(dragForce.x, 2) + pow(dragForce.y, 2))) +
 		"\nReynold: " + std::to_string(this->Reynold()) +
 		"\nCD: " + std::to_string(this->DragCoefficient(this->Reynold())) +
-		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))));
+		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))) +
+		"\nAngleVelocity: " + std::to_string(this->angleVelocity));
 	// F/m = a, apply to forceVector and add gravity acceleration
 	return sf::Vector2f((forceVector.x / this->mass), (forceVector.y / this->mass)); 
 }
@@ -108,6 +119,7 @@ sf::Vector2f RoundProjectile::update() {
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
 	// v = v0 + at
 	this->velocity = this->velocity + acceleration * dt;
+	this->angleVelocity = this->angleVelocity + dt * this->ViscousTorque();
 	this->position = newPos;
 	this->sphere.setPosition(this->position);
 	return newPos;

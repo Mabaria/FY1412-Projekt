@@ -6,12 +6,14 @@ private:
 	float angleVelocity; // rad/s, positive value means counter clockwise spin
 	float airDensity;
 	float airViscosity;
+	float momOfInertia;
 
 	sf::CircleShape sphere;
 	sf::Font dataFont;
 	sf::Text dataText;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	float ViscousTorque(); // Returns the angular acceleration due to viscous torque
 public:
 
 	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction);

@@ -70,6 +70,10 @@ void GameManager::update()
 	this->input->handleKeys();
 	if (this->activeProjectile != nullptr) {
 		this->activeProjectile->update();
+		if (this->activeProjectile->getPosition().y > 850) {
+			delete this->activeProjectile;
+			this->activeProjectile = nullptr;
+		}
 	}
 }
 

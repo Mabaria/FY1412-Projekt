@@ -27,7 +27,7 @@ public:
 	virtual sf::Vector2f update() = 0; // returns new position
 
 	float getVelocity();
-	float getPosition();
+	sf::Vector2f getPosition();
 
 
 };
