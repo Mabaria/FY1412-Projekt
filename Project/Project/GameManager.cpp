@@ -19,13 +19,14 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	}
 }
 
-GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airViscosity) : 
+GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &airSpeed, float airDensity, float airViscosity) : 
 						 player1(sf::Vector2f(75.0f, 838.0f), sf::Color::Green, true),  
 						 player2(sf::Vector2f(1325.0f, 838.0f), sf::Color::Red, false)
 {
 	this->gravity = gravity;
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
+	this->airSpeed = airSpeed;
 
 	this->input = new InputHandler;
 	Locator::provide(input);
@@ -37,10 +38,10 @@ GameManager::GameManager(sf::Vector2f &gravity, float airDensity, float airVisco
 	
 	this->player1ChangeProjectile = new ChangeProjectileCommand(&this->player1);
 
-	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1, this->gravity, this->airDensity, this->airViscosity, &this->activeProjectile);
+	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1, this->gravity, this->airSpeed, this->airDensity, this->airViscosity, &this->activeProjectile);
 	this->player2RotateAimLeft = new RotateAimLeftCommand(&this->player2);
 	this->player2RotateAimRight = new RotateAimRightCommand(&this->player2);
-	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2, this->gravity, this->airDensity, this->airViscosity, &this->activeProjectile);
+	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2, this->gravity, this->airSpeed, this->airDensity, this->airViscosity, &this->activeProjectile);
 	
 	this->player2ChangeProjectile = new ChangeProjectileCommand(&this->player2);
 

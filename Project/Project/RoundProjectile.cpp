@@ -3,12 +3,12 @@
 #include <math.h>
 #include "Locator.h"
 
-#define ROUNDPROJMASS 800
-#define ROUNDPROJVELOCITY 220 
-#define ROUNDPROJRADIUS 1.00f
-#define ROUNDPROJANGLEVELOCITY -7.88f 
+#define ROUNDPROJMASS 80
+#define ROUNDPROJVELOCITY 150
+#define ROUNDPROJRADIUS 0.40f
+#define ROUNDPROJANGLEVELOCITY -0.00f 
 
-RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction) {
+RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f airSpeed) {
 	this->mass = ROUNDPROJMASS;
 	this->radius = ROUNDPROJRADIUS;
 	this->momOfInertia = 0.4f * this->mass * pow(this->radius, 2);
@@ -16,6 +16,7 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->area = this->radius * this->radius * (float)M_PI; 
 	this->velocity = sf::Vector2f(direction.x * ROUNDPROJVELOCITY, direction.y * ROUNDPROJVELOCITY);
 	this->gravity = sf::Vector2f(gravity.x*ROUNDPROJMASS, gravity.y*ROUNDPROJMASS);
+	this->airSpeed = airSpeed;
 	this->angleVelocity = ROUNDPROJANGLEVELOCITY;
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
@@ -77,13 +78,14 @@ float RoundProjectile::ViscousTorque()
 }
 
 sf::Vector2f RoundProjectile::DragForce( float cd) {
+	sf::Vector2f relativeSpeed = this->velocity - this->airSpeed;
 	// Fd = -0.5 * Cd * airDensity * area * speed^2
-	float speed = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
+	float speed = sqrt(pow(relativeSpeed.x, 2) + pow(relativeSpeed.y, 2));
 	if (speed < 0.5f) {
 		return sf::Vector2f(0.0f, 0.0f);
 	}
 	float force = -0.5f * cd * this->airDensity * this->area * pow(speed, 2);
-	return sf::Vector2f((this->velocity.x / speed) * force, (this->velocity.y / speed) * force); // This returns the air resistance force vector, direction will be opposite the velocity vector
+	return sf::Vector2f((relativeSpeed.x / speed) * force, (relativeSpeed.y / speed) * force); // This returns the air resistance force vector, direction will be opposite the velocity vector
 }
 
 sf::Vector2f RoundProjectile::MagnusForce() {

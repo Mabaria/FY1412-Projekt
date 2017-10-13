@@ -25,7 +25,7 @@ public:
 	void rotateCannon(float angle);
 	
 	void changeProjectile();
-	void shootProjectile(sf::Vector2f &gravity, float airDensity, float airViscosity, Projectile* &activeProjectile);
+	void shootProjectile(sf::Vector2f &gravity, sf::Vector2f &airSpeed, float airDensity, float airViscosity, Projectile* &activeProjectile);
 };
 
 #endif

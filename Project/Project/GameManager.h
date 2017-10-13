@@ -29,13 +29,14 @@ private:
 	Command* player2ChangeProjectile;
 
 	sf::Vector2f gravity;
+	sf::Vector2f airSpeed;
 	float airDensity;
 	float airViscosity;
 
 	void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	
 public:
-	GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), float airDensity = 1.22f, float airViscosity = 1.1827f);
+	GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), sf::Vector2f &airSpeed = sf::Vector2f(10.0f, 0.0f), float airDensity = 1.22f, float airViscosity = 0.00001827f);
 	~GameManager();
 
 	void update();
