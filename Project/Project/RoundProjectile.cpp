@@ -22,7 +22,7 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->airViscosity = airViscosity;
 
 	this->sphere.setFillColor(sf::Color::Black);
-	this->sphere.setRadius(10.0f);
+	this->sphere.setRadius(5.0f);
 	this->sphere.setPosition(this->position);
 
 	this->dataFont.loadFromFile("Resources\\Fonts\\arial.ttf");
@@ -62,9 +62,9 @@ float RoundProjectile::ViscousTorque()
  float RoundProjectile::DragCoefficient( float reynold){
 	// http://pages.mtu.edu/~fmorriso/DataCorrelationForSphereDrag2016.pdf
 	 float cd1, cd2, cd3, cd4, cdtotal;
-	 if (reynold < 0.01f) {
-		 cdtotal = 5000;
-	 }
+
+	 if (reynold < 4.0f)
+		 cdtotal = 24 / reynold;
 	 else {
 		 cd1 = 24 / reynold;
 		 cd2 = (2.6f*(reynold*0.2f)) / (1 + pow((reynold*0.2f), 1.52f));
@@ -115,7 +115,7 @@ sf::Vector2f RoundProjectile::TotalAcceleration() {
 sf::Vector2f RoundProjectile::update() {
 	sf::Vector2f acceleration = this->TotalAcceleration(); // This function calls and calculates all forces currently affecting the object and returns an acceleration vector
 	// r = r0 + vt + at^2 / 2
-	float dt = 4 * Locator::getGameTime()->getDeltaTime();
+	float dt = 1.0f * Locator::getGameTime()->getDeltaTime();
 
 	sf::Vector2f newPos = sf::Vector2f((this->position.x + (this->velocity.x * dt) + ((acceleration.x * pow(dt, 2)) / 2)),
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
