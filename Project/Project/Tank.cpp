@@ -36,7 +36,7 @@ Tank::Tank(sf::Vector2f pos, sf::Color color, bool facingRight)
 		this->cannon.setOrigin(2.0f, 2.0f);
 		this->cannon.setRotation(-45);
 		// Set the text to show the correct initial rotation
-		this->dataText.setString("Degrees: " + std::to_string(this->cannon.getRotation()));
+		this->dataText.setString("Degrees: " + std::to_string(-(this->cannon.getRotation() - 360)));
 		// Text upper left corner
 		this->dataText.setPosition(sf::Vector2f(0.0f, 0.0f));
 	}
@@ -92,8 +92,10 @@ void Tank::rotateCannon(float angle)
 		}
 	}
 	
-
-	this->dataText.setString("Degrees: " + std::to_string(this->cannon.getRotation()));
+	if(this->facingRight)
+		this->dataText.setString("Degrees: " + std::to_string(-(this->cannon.getRotation() - 360)));
+	else
+		this->dataText.setString("Degrees: " + std::to_string(this->cannon.getRotation()));
 }
 
 void Tank::shootProjectile(sf::Vector2f &gravity, sf::Vector2f &airSpeed, float airDensity, float airViscosity, Projectile* &activeProjectile)

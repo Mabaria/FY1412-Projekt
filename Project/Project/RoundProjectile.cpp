@@ -4,9 +4,9 @@
 #include "Locator.h"
 
 #define ROUNDPROJMASS 80
-#define ROUNDPROJVELOCITY 150
+#define ROUNDPROJVELOCITY 180
 #define ROUNDPROJRADIUS 0.40f
-#define ROUNDPROJANGLEVELOCITY -0.00f 
+#define ROUNDPROJANGLEVELOCITY -10.00f 
 
 RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f airSpeed) {
 	this->mass = ROUNDPROJMASS;
@@ -103,8 +103,8 @@ sf::Vector2f RoundProjectile::MagnusForce() {
 sf::Vector2f RoundProjectile::TotalAcceleration() {
 	sf::Vector2f dragForce = this->DragForce(this->DragCoefficient(this->Reynold()));
 	sf::Vector2f forceVector = dragForce + this->MagnusForce() + this->gravity;
-	this->dataText.setString("Drag force: " + std::to_string(sqrt(pow(dragForce.x, 2) + pow(dragForce.y, 2))) +
-		"\nReynold: " + std::to_string(this->Reynold()) +
+	this->dataText.setString("Drag force: " + std::to_string((int)round(sqrt(pow(dragForce.x, 2) + pow(dragForce.y, 2)))) +
+		"\nReynold: " + std::to_string((int)round(this->Reynold())) +
 		"\nCD: " + std::to_string(this->DragCoefficient(this->Reynold())) +
 		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))) +
 		"\nAngleVelocity: " + std::to_string(this->angleVelocity));
