@@ -8,9 +8,9 @@ Projectile::~Projectile()
 {
 }
 
-float Projectile::getVelocity()
+sf::Vector2f Projectile::getVelocity()
 {
-	return 0.0f;
+	return this->velocity;
 }
 
 sf::Vector2f Projectile::getPosition()
