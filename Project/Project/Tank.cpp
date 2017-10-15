@@ -25,6 +25,10 @@ Tank::Tank(sf::Vector2f pos, sf::Color color, bool facingRight)
 	this->body.setFillColor(color);
 	this->body.setPosition(pos);
 	this->body.setSize(sf::Vector2f(25.0f, 12.0f));
+	this->bBox.left = this->body.getPosition().x;
+	this->bBox.top = this->body.getPosition().y;
+	this->bBox.width = this->body.getSize().x;
+	this->bBox.height = this->body.getSize().y;
 
 	// Cannon general settings
 	this->cannon.setFillColor(sf::Color::Black);
@@ -96,6 +100,17 @@ void Tank::rotateCannon(float angle)
 		this->dataText.setString("Degrees: " + std::to_string(-(this->cannon.getRotation() - 360)));
 	else
 		this->dataText.setString("Degrees: " + std::to_string(this->cannon.getRotation()));
+}
+
+bool Tank::collision(sf::Vector2f projPos)
+{
+	bool hit = false;
+
+	if (this->bBox.contains(projPos.x, projPos.y)) {
+		hit = true;
+	}
+
+	return hit;
 }
 
 void Tank::shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float airDensity, float airViscosity, Projectile* &activeProjectile)

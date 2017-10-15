@@ -10,6 +10,7 @@ private:
 	sf::RectangleShape body;
 	sf::RectangleShape cannon;
 	sf::CircleShape wheels[4];
+	sf::IntRect bBox;
 
 	bool facingRight;
 
@@ -23,7 +24,7 @@ public:
 	~Tank();
 
 	void rotateCannon(float angle);
-	
+	bool collision(sf::Vector2f projPos);
 	void changeProjectile();
 	void shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float airDensity, float airViscosity, Projectile* &activeProjectile);
 };

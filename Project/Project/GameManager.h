@@ -7,6 +7,8 @@
 #include "Tank.h"
 #include "Projectile.h"
 
+enum TURN { GREEN, RED };
+
 class GameManager : public sf::Drawable
 {
 private:
@@ -15,6 +17,11 @@ private:
 
 	Tank player1;
 	Tank player2;
+	TURN turn;
+	bool gameOver;
+	sf::RectangleShape cover;
+	sf::Text endText;
+	sf::Font font;
 
 	Projectile* activeProjectile;
 
@@ -34,6 +41,7 @@ private:
 	float airViscosity;
 
 	void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	void collisionDetection();
 	
 public:
 	GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), sf::Vector2f &windSpeed = sf::Vector2f(0.0f, -0.0f), float airDensity = 1.22f, float airViscosity = 0.00001827f);

@@ -17,6 +17,16 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	if (this->activeProjectile != nullptr) {
 		target.draw(*this->activeProjectile);
 	}
+
+	if (this->gameOver) {
+		target.draw(this->cover);
+		target.draw(this->endText);
+	}
+}
+
+void GameManager::collisionDetection()
+{
+
 }
 
 GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &windSpeed, float airDensity, float airViscosity) : 
@@ -28,6 +38,20 @@ GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &windSpeed, float ai
 	this->airViscosity = airViscosity;
 	this->windSpeed = windSpeed;
 
+	this->turn = GREEN;
+	this->gameOver = false;
+
+	this->cover.setPosition(0.0f, 0.0f);
+	this->cover.setSize(sf::Vector2f(1600, 900));
+	this->cover.setFillColor(sf::Color::Black);
+
+	this->font.loadFromFile("Resources\\Fonts\\arial.ttf");
+
+	this->endText.setFont(this->font);
+	this->endText.setString("Game Over");
+	this->endText.setOrigin(this->endText.getGlobalBounds().left + this->endText.getGlobalBounds().width / 2, this->endText.getGlobalBounds().top + this->endText.getGlobalBounds().height / 2);
+	this->endText.setPosition(sf::Vector2f(1440 / 2, 900 / 2));
+
 	this->input = new InputHandler;
 	Locator::provide(input);
 
@@ -35,14 +59,12 @@ GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &windSpeed, float ai
 
 	this->player1RotateAimLeft = new RotateAimLeftCommand(&this->player1);
 	this->player1RotateAimRight = new RotateAimRightCommand(&this->player1);
-	
 	this->player1ChangeProjectile = new ChangeProjectileCommand(&this->player1);
-
 	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1, this->gravity, this->windSpeed, this->airDensity, this->airViscosity, &this->activeProjectile);
+
 	this->player2RotateAimLeft = new RotateAimLeftCommand(&this->player2);
 	this->player2RotateAimRight = new RotateAimRightCommand(&this->player2);
 	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2, this->gravity, this->windSpeed, this->airDensity, this->airViscosity, &this->activeProjectile);
-	
 	this->player2ChangeProjectile = new ChangeProjectileCommand(&this->player2);
 
 	this->input->setCommand(A, this->player1RotateAimLeft);
@@ -74,7 +96,27 @@ void GameManager::update()
 		if (this->activeProjectile->getPosition().y > 850) {
 			delete this->activeProjectile;
 			this->activeProjectile = nullptr;
+			
+			if (this->turn == GREEN) {
+				this->turn = RED;
+			}
+			else {
+				this->turn = GREEN;
+			}
 		}
+		else if (this->turn == GREEN && this->player2.collision(this->activeProjectile->getPosition())) {
+			this->gameOver = true;
+			delete this->activeProjectile;
+			this->activeProjectile = nullptr;
+		}
+		else if (this->turn == RED && this->player1.collision(this->activeProjectile->getPosition())) {
+			this->gameOver = true;
+			delete this->activeProjectile;
+			this->activeProjectile = nullptr;
+		}
+	}
+	if (this->gameOver) {
+		int test = 0;
 	}
 }
 

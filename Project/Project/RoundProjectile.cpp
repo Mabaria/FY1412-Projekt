@@ -4,7 +4,7 @@
 #include "Locator.h"
 
 #define ROUNDPROJMASS 100
-#define ROUNDPROJVELOCITY 150
+#define ROUNDPROJVELOCITY 200
 #define ROUNDPROJRADIUS 0.40f
 #define ROUNDPROJANGLEVELOCITY 10.00f 
 
@@ -24,6 +24,7 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->sphere.setFillColor(sf::Color::Black);
 	this->sphere.setRadius(5.0f);
 	this->sphere.setPosition(this->position);
+	this->sphere.setOrigin(sf::Vector2f(ROUNDPROJRADIUS / 2, ROUNDPROJRADIUS / 2));
 
 	this->dataFont.loadFromFile("Resources\\Fonts\\arial.ttf");
 	this->dataText.setFont(this->dataFont);
