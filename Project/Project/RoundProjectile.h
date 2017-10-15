@@ -1,5 +1,10 @@
 #include "Projectile.h"
 
+enum ROUNDSPINDIRECTION {
+	ROUNDSPINLEFT = 0,
+	ROUNDSPINRIGHT = 1
+};
+
 class RoundProjectile : public Projectile {
 private:
 	float area;
@@ -18,7 +23,7 @@ private:
 	float ViscousTorque(); // Returns the angular acceleration due to viscous torque
 public:
 
-	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed);
+	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, ROUNDSPINDIRECTION spinDir, sf::Vector2f windSpeed);
 	~RoundProjectile();
 	 float Reynold();
 	 float DragCoefficient( float reynold);

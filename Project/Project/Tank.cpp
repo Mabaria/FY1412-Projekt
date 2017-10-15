@@ -62,6 +62,8 @@ Tank::Tank(sf::Vector2f pos, sf::Color color, bool facingRight)
 		wheels[i].setRadius(4.0f);
 		wheels[i].setPosition(pos.x + (7.0f * i) - 2.0f, pos.y + 6.0f);
 	}
+
+	this->selectedProj = ROUNDLEFTSPIN;
 }
 
 
@@ -121,11 +123,23 @@ void Tank::shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float
 			direction = sf::Vector2f(cos(this->cannon.getRotation()*3.14159265358f/180.0f), sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
 		else
 			direction = sf::Vector2f(-cos(this->cannon.getRotation()*3.14159265358f / 180.0f), -sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
-		activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, windSpeed);
+
+		if(this->selectedProj == ROUNDLEFTSPIN)
+			activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, ROUNDSPINLEFT, windSpeed);
+		else if(this->selectedProj == ROUNDRIGHTSPIN)
+			activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, ROUNDSPINRIGHT, windSpeed);
+		else if (this->selectedProj == ARTILLERYSHELL) {
+			// Create artillery shell
+		}
 	}
+}
+
+PROJECTILETYPE Tank::getSelectedProjectile()
+{
+	return this->selectedProj;
 }
 
 void Tank::changeProjectile()
 {
-	
+	this->selectedProj = (PROJECTILETYPE)((this->selectedProj + 1) % TOTALPROJTYPES); // Cycles through projectile types
 }

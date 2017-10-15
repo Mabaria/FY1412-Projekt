@@ -8,7 +8,7 @@
 #define ROUNDPROJRADIUS 0.40f
 #define ROUNDPROJANGLEVELOCITY 50.00f 
 
-RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed) {
+RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, ROUNDSPINDIRECTION spinDir, sf::Vector2f windSpeed) {
 	this->mass = ROUNDPROJMASS;
 	this->radius = ROUNDPROJRADIUS;
 	this->momOfInertia = 0.4f * this->mass * pow(this->radius, 2);
@@ -17,7 +17,11 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->velocity = sf::Vector2f(direction.x * ROUNDPROJVELOCITY, direction.y * ROUNDPROJVELOCITY);
 	this->gravity = sf::Vector2f(gravity.x*ROUNDPROJMASS, gravity.y*ROUNDPROJMASS);
 	this->windSpeed = windSpeed;
-	this->angleVelocity = ROUNDPROJANGLEVELOCITY;
+
+	if (spinDir == ROUNDSPINLEFT)
+		this->angleVelocity = -ROUNDPROJANGLEVELOCITY;
+	else
+		this->angleVelocity = ROUNDPROJANGLEVELOCITY;
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
 

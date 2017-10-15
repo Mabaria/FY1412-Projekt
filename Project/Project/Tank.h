@@ -4,6 +4,13 @@
 #include "RoundProjectile.h"
 #include <SFML\Graphics.hpp>
 
+enum PROJECTILETYPE {
+	ROUNDLEFTSPIN = 0,
+	ROUNDRIGHTSPIN = 1,
+	ARTILLERYSHELL = 2,
+	TOTALPROJTYPES // If new projectile are added this NEEDS to be defined last
+};
+
 class Tank : public sf::Drawable
 {
 private:
@@ -11,6 +18,8 @@ private:
 	sf::RectangleShape cannon;
 	sf::CircleShape wheels[4];
 	sf::FloatRect bBox;
+
+	PROJECTILETYPE selectedProj;
 
 	bool facingRight;
 
@@ -27,6 +36,7 @@ public:
 	bool collision(sf::FloatRect &projBounds);
 	void changeProjectile();
 	void shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float airDensity, float airViscosity, Projectile* &activeProjectile);
+	PROJECTILETYPE getSelectedProjectile();
 };
 
 #endif

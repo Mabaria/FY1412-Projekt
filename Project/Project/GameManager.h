@@ -22,18 +22,21 @@ private:
 	sf::RectangleShape cover;
 	sf::Text endText;
 	sf::Font font;
+	sf::Text selectedProjectileText;
 
 	Projectile* activeProjectile;
 
 	Command* player1RotateAimLeft;
 	Command* player1RotateAimRight;
 	Command* player1ShootProjectile;
-	Command* player1ChangeProjectile;
+	// Command* player1ChangeProjectile;
 
 	Command* player2RotateAimLeft;
 	Command* player2RotateAimRight;
 	Command* player2ShootProjectile;
-	Command* player2ChangeProjectile;
+	// Command* player2ChangeProjectile;
+
+	Command* playersChangeProjectile;
 
 	sf::Vector2f gravity;
 	sf::Vector2f windSpeed;

@@ -8,10 +8,11 @@
 class ChangeProjectileCommand : public Command
 {
 private:
-	Tank* tank;
+	Tank* tank1;
+	Tank* tank2;
 
 public:
-	ChangeProjectileCommand(Tank* tank);
+	ChangeProjectileCommand(Tank* tank1, Tank* tank2);
 	virtual void execute(bool& tapKey);
 };
 

@@ -14,6 +14,7 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(this->ground);
 	target.draw(player1);
 	target.draw(this->player2);
+	target.draw(this->selectedProjectileText);
 	if (this->activeProjectile != nullptr) {
 		target.draw(*this->activeProjectile);
 	}
@@ -22,6 +23,7 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 		target.draw(this->cover);
 		target.draw(this->endText);
 	}
+	
 }
 
 void GameManager::collisionDetection()
@@ -59,25 +61,33 @@ GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &windSpeed, float ai
 
 	this->player1RotateAimLeft = new RotateAimLeftCommand(&this->player1);
 	this->player1RotateAimRight = new RotateAimRightCommand(&this->player1);
-	this->player1ChangeProjectile = new ChangeProjectileCommand(&this->player1);
+	// this->player1ChangeProjectile = new ChangeProjectileCommand(&this->player1);
 	this->player1ShootProjectile = new ShootProjectileCommand(&this->player1, this->gravity, this->windSpeed, this->airDensity, this->airViscosity, &this->activeProjectile);
 
 	this->player2RotateAimLeft = new RotateAimLeftCommand(&this->player2);
 	this->player2RotateAimRight = new RotateAimRightCommand(&this->player2);
 	this->player2ShootProjectile = new ShootProjectileCommand(&this->player2, this->gravity, this->windSpeed, this->airDensity, this->airViscosity, &this->activeProjectile);
-	this->player2ChangeProjectile = new ChangeProjectileCommand(&this->player2);
+	// this->player2ChangeProjectile = new ChangeProjectileCommand(&this->player2);
+
+	this->playersChangeProjectile = new ChangeProjectileCommand(&this->player1, &this->player2);
 
 	this->input->setCommand(A, this->player1RotateAimLeft);
 	this->input->setCommand(D, this->player1RotateAimRight);
 	this->input->setCommand(SPACE, this->player1ShootProjectile);
-	this->input->setCommand(E, this->player1ChangeProjectile);
+	// this->input->setCommand(E, this->player1ChangeProjectile);
 
 	this->input->setCommand(LEFT, this->player2RotateAimLeft);
 	this->input->setCommand(RIGHT, this->player2RotateAimRight);
 	this->input->setCommand(ENTER, this->player2ShootProjectile);
-	this->input->setCommand(RCTRL, this->player2ChangeProjectile);
+	// this->input->setCommand(RCTRL, this->player2ChangeProjectile);
 
+	this->input->setCommand(RCTRL, this->playersChangeProjectile);
 
+	this->selectedProjectileText.setFont(font);
+	this->selectedProjectileText.setCharacterSize(12);
+	this->selectedProjectileText.setString("Selected Projectile: Round, counter-clockwise spin");
+	this->selectedProjectileText.setOrigin(this->endText.getGlobalBounds().left + this->endText.getGlobalBounds().width / 2, this->endText.getGlobalBounds().top + this->endText.getGlobalBounds().height / 2);
+	this->selectedProjectileText.setPosition(sf::Vector2f(1200, 1320));
 
 	this->ground.setFillColor(sf::Color(1,142,14));
 	this->ground.setPosition(0, 850);
@@ -115,6 +125,19 @@ void GameManager::update()
 			this->activeProjectile = nullptr;
 		}
 	}
+
+	PROJECTILETYPE selected = this->player1.getSelectedProjectile();
+	if (selected == ROUNDLEFTSPIN) {
+		this->selectedProjectileText.setString("Selected Projectile: Round, counter-clockwise spin");
+	}
+	else if (selected == ROUNDRIGHTSPIN) {
+		this->selectedProjectileText.setString("Selected Projectile: Round, clockwise spin");
+	}
+	else if (selected == ARTILLERYSHELL) {
+		this->selectedProjectileText.setString("Selected Projectile: Artillery Shell");
+	}
+
+
 	if (this->gameOver) {
 		int test = 0;
 	}
