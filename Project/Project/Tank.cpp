@@ -129,7 +129,7 @@ void Tank::shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float
 		else if(this->selectedProj == ROUNDRIGHTSPIN)
 			activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, ROUNDSPINRIGHT, windSpeed);
 		else if (this->selectedProj == ARTILLERYSHELL) {
-			// Create artillery shell
+			activeProjectile = new ArtilleryShell(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, windSpeed);
 		}
 	}
 }

@@ -10,7 +10,7 @@
 
 
 
-ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f airSpeed)
+ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed)
 {
 	this->mass = ARTILLERYPROJMASS;
 	this->radius = ARTILLERYPROJRADIUS;
@@ -20,6 +20,7 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 	this->gravity = sf::Vector2f(gravity.x*ARTILLERYPROJMASS, gravity.y*ARTILLERYPROJMASS);
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
+	this->windSpeed = windSpeed;
 
 	this->triangle.setPointCount(3);
 	this->triangle.setPoint(0, sf::Vector2f(0.f, 0.f));
@@ -90,4 +91,9 @@ sf::Vector2f ArtilleryShell::update()
 	this->triangle.setPosition(this->position);
 	this->triangle.setRotation(-atanf(this->velocity.y / this->velocity.x));
 	return sf::Vector2f();
+}
+
+sf::FloatRect ArtilleryShell::getBoundingBox()
+{
+	return this->triangle.getGlobalBounds();
 }

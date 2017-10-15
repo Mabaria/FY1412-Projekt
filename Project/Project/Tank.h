@@ -2,6 +2,7 @@
 #ifndef TANK_H
 #define TANK_H
 #include "RoundProjectile.h"
+#include "ArtilleryShell.h"
 #include <SFML\Graphics.hpp>
 
 enum PROJECTILETYPE {
