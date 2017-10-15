@@ -24,8 +24,8 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 
 	this->triangle.setPointCount(3);
 	this->triangle.setPoint(0, sf::Vector2f(0.f, 0.f));
-	this->triangle.setPoint(1, sf::Vector2f(0.f, 5.f));
-	this->triangle.setPoint(2, sf::Vector2f(5.f, 2.5f));
+	this->triangle.setPoint(1, sf::Vector2f(0.f, 10.f));
+	this->triangle.setPoint(2, sf::Vector2f(10.f, 5.f));
 	this->triangle.setFillColor(sf::Color::Black);
 	this->triangle.setOrigin(5.f / 3.f, 2.5f);
 	this->triangle.setPosition(this->position);
@@ -90,7 +90,7 @@ sf::Vector2f ArtilleryShell::update()
 	this->position = newPos;
 	this->triangle.setPosition(this->position);
 	this->triangle.setRotation(-atanf(this->velocity.y / this->velocity.x));
-	return sf::Vector2f();
+	return newPos;
 }
 
 sf::FloatRect ArtilleryShell::getBoundingBox()
