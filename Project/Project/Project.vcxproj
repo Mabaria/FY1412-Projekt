@@ -126,6 +126,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="ArtilleryShell.h" />
     <ClInclude Include="IGameTime.h" />
     <ClInclude Include="IInputHandler.h" />
     <ClInclude Include="InputHandler.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArtilleryShell.cpp" />
     <ClCompile Include="ChangeProjectileCommand.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameTime.cpp" />
