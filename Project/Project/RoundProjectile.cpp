@@ -3,10 +3,10 @@
 #include <math.h>
 #include "Locator.h"
 
-#define ROUNDPROJMASS 100
+#define ROUNDPROJMASS 200
 #define ROUNDPROJVELOCITY 200
 #define ROUNDPROJRADIUS 0.40f
-#define ROUNDPROJANGLEVELOCITY 10.00f 
+#define ROUNDPROJANGLEVELOCITY 50.00f 
 
 RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed) {
 	this->mass = ROUNDPROJMASS;
@@ -116,7 +116,7 @@ sf::Vector2f RoundProjectile::TotalAcceleration() {
 sf::Vector2f RoundProjectile::update() {
 	sf::Vector2f acceleration = this->TotalAcceleration(); // This function calls and calculates all forces currently affecting the object and returns an acceleration vector
 	// r = r0 + vt + at^2 / 2
-	float dt = 1.0f * Locator::getGameTime()->getDeltaTime();
+	float dt = 3.0f * Locator::getGameTime()->getDeltaTime();
 
 	sf::Vector2f newPos = sf::Vector2f((this->position.x + (this->velocity.x * dt) + ((acceleration.x * pow(dt, 2)) / 2)),
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
@@ -126,4 +126,9 @@ sf::Vector2f RoundProjectile::update() {
 	this->position = newPos;
 	this->sphere.setPosition(this->position);
 	return newPos;
+}
+
+sf::FloatRect RoundProjectile::getBoundingBox()
+{
+	return this->sphere.getGlobalBounds();
 }

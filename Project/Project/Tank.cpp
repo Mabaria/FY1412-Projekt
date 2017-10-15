@@ -102,11 +102,11 @@ void Tank::rotateCannon(float angle)
 		this->dataText.setString("Degrees: " + std::to_string(this->cannon.getRotation()));
 }
 
-bool Tank::collision(sf::Vector2f projPos)
+bool Tank::collision(sf::FloatRect &projBounds)
 {
 	bool hit = false;
 
-	if (this->bBox.contains(projPos.x, projPos.y)) {
+	if (this->bBox.intersects(projBounds)) {
 		hit = true;
 	}
 

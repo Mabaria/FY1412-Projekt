@@ -26,4 +26,5 @@ public:
 	sf::Vector2f MagnusForce();
 	sf::Vector2f TotalAcceleration();
 	sf::Vector2f update();
+	virtual sf::FloatRect getBoundingBox();
 };

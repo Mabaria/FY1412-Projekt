@@ -27,6 +27,7 @@ public:
 
 	sf::Vector2f getVelocity();
 	sf::Vector2f getPosition();
+	virtual sf::FloatRect getBoundingBox() = 0;
 
 
 };

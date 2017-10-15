@@ -104,12 +104,12 @@ void GameManager::update()
 				this->turn = GREEN;
 			}
 		}
-		else if (this->turn == GREEN && this->player2.collision(this->activeProjectile->getPosition())) {
+		else if (this->turn == GREEN && this->player2.collision(this->activeProjectile->getBoundingBox())) {
 			this->gameOver = true;
 			delete this->activeProjectile;
 			this->activeProjectile = nullptr;
 		}
-		else if (this->turn == RED && this->player1.collision(this->activeProjectile->getPosition())) {
+		else if (this->turn == RED && this->player1.collision(this->activeProjectile->getBoundingBox())) {
 			this->gameOver = true;
 			delete this->activeProjectile;
 			this->activeProjectile = nullptr;
