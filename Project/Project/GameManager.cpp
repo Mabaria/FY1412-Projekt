@@ -12,6 +12,7 @@
 void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(this->ground);
+	target.draw(this->hill);
 	target.draw(player1);
 	target.draw(this->player2);
 	target.draw(this->selectedProjectileText);
@@ -93,6 +94,16 @@ GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &windSpeed, float ai
 	this->ground.setPosition(0, 850);
 	this->ground.setSize(sf::Vector2f(1440, 50.0f));
 
+
+
+	this->hill.setFillColor(sf::Color(1, 142, 14));
+	this->hill.setPointCount(3);
+	this->hill.setPoint(0, sf::Vector2f(720 - 80, 850));
+	this->hill.setPoint(1, sf::Vector2f(720 + 80, 850));
+	this->hill.setPoint(2, sf::Vector2f(720, 770));
+
+
+	this->ground.setPosition(0, 850);
 	this->player2.setTurn(false);
 }
 

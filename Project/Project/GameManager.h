@@ -14,6 +14,7 @@ class GameManager : public sf::Drawable
 private:
 	IInputHandler* input;
 	sf::RectangleShape ground;
+	sf::ConvexShape hill;
 
 	Tank player1;
 	Tank player2;

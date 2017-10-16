@@ -30,7 +30,7 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 	this->triangle.setOrigin(5.f / 3.f, 2.5f);
 	this->triangle.setPosition(this->position);
 	//this->directionVec=sf::Vector2f((this->position.x+2,5)-(this->position.x),((this->position.y-2.5)))
-	this->triangle.rotate((180.0f / 3.14159265358f) *-atan2f(this->velocity.y,this->velocity.x));
+	this->triangle.rotate((180.0f / 3.14159265358f) *atan2f(this->velocity.y,this->velocity.x));
 
 
 }
@@ -89,7 +89,7 @@ sf::Vector2f ArtilleryShell::update()
 	this->velocity = this->velocity + (acceleration*dt);
 	this->position = newPos;
 	this->triangle.setPosition(this->position);
-	this->triangle.setRotation((180.0f / 3.14159265358f)*(-atan2f(this->velocity.y, this->velocity.x)));
+	this->triangle.setRotation((180.0f / 3.14159265358f)*(atan2f(this->velocity.y, this->velocity.x)));
 	return newPos;
 }
 
