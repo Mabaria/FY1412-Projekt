@@ -38,7 +38,7 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 	this->triangle.setOrigin(5.f / 3.f, 2.5f);
 	this->triangle.setPosition(this->position);
 	//this->directionVec=sf::Vector2f((this->position.x+2,5)-(this->position.x),((this->position.y-2.5)))
-	this->triangle.rotate((180.0f / 3.14159265358f) *-atan2f(this->velocity.y,this->velocity.x));
+	this->triangle.rotate((180.0f / 3.14159265358f) *atan2f(this->velocity.y,this->velocity.x));
 
 
 }
@@ -70,12 +70,13 @@ float ArtilleryShell::DragCoefficient() //Based on cd/mach graph from http://www
 
 sf::Vector2f ArtilleryShell::DragForce(float cd)
 {
-	float speed = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
+	sf::Vector2f relativeSpeed = this->velocity - this->windSpeed;
+	float speed = sqrt(pow(relativeSpeed.x, 2) + pow(relativeSpeed.y, 2));
 	sf::Vector2f dragForce;
 	if (speed < 0.5f)
 		dragForce = sf::Vector2f(0.0f, 0.0f);
 	float force = -0.5f*cd*this->airDensity*this->area*pow(speed, 2);
-	dragForce = sf::Vector2f((this->velocity.x / speed)*force, (this->velocity.y / speed)*force);
+	dragForce = sf::Vector2f((relativeSpeed.x / speed)*force, (relativeSpeed.y / speed)*force);
 
 	return dragForce;
 }
@@ -100,7 +101,7 @@ sf::Vector2f ArtilleryShell::update()
 	this->velocity = this->velocity + (acceleration*dt);
 	this->position = newPos;
 	this->triangle.setPosition(this->position);
-	this->triangle.setRotation((180.0f / 3.14159265358f)*(-atan2f(this->velocity.y, this->velocity.x)));
+	this->triangle.setRotation((180.0f / 3.14159265358f)*(atan2f(this->velocity.y, this->velocity.x)));
 	return newPos;
 }
 

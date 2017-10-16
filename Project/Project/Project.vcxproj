@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="ChangeProjectileCommand.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="ArtilleryShell.h" />

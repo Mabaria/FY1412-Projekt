@@ -78,6 +78,9 @@
     <ClInclude Include="ArtilleryShell.h">
       <Filter>Header Files\Projectiles</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Projectiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RotateAimLeftCommand.cpp">
