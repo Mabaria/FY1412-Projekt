@@ -12,6 +12,30 @@ void Cube::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(this->cube);
 	target.draw(this->dataText);
+	target.draw(this->gravityLine);
+	target.draw(this->dragForceLine);
+}
+
+void Cube::updateLines()
+{
+	// This is a quick and dirty implementation, a good one would only calculate these
+	// values once but at this point I just want a nice working solution
+	this->gravityLine.setPosition(this->position);
+	this->dragForceLine.setPosition(this->position);
+	sf::Vector2f gravityForceVector = this->gravity;
+	sf::Vector2f dragForceVector = this->DragForce(this->DragCoefficient());
+	float totalVectorLength = (sqrt(pow(gravityForceVector.x, 2) + pow(gravityForceVector.y, 2)) +
+		sqrt(pow(dragForceVector.x, 2) + pow(dragForceVector.y, 2)));
+
+	float gravityLineLength = sqrt(pow(gravityForceVector.x, 2) + pow(gravityForceVector.y, 2)) / totalVectorLength;
+	float dragLineLength = sqrt(pow(dragForceVector.x, 2) + pow(dragForceVector.y, 2)) / totalVectorLength;
+
+	this->gravityLine.setSize(sf::Vector2f(gravityLineLength * 200.0f, 2));
+	this->dragForceLine.setSize(sf::Vector2f(dragLineLength * 200.0f, 2));
+
+	this->gravityLine.setRotation((180.0f / M_PI) * atan2f(gravityForceVector.y, gravityForceVector.x));
+	this->dragForceLine.setRotation((180.0f / M_PI) * atan2f(dragForceVector.y, dragForceVector.x));
+
 }
 
 Cube::Cube(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed)
@@ -39,6 +63,13 @@ Cube::Cube(float airDensity, float airViscosity, sf::Vector2f position, sf::Vect
 	this->cube.setFillColor(sf::Color::Black);
 	this->cube.setPosition(this->position);
 	this->cube.setRotation((180.0f / (float)M_PI) *atan2f(this->velocity.y, this->velocity.x));
+
+	this->gravityLine.setPosition(this->position);
+	this->dragForceLine.setPosition(this->position);
+	this->dragForceLine.setOrigin(sf::Vector2f(this->radius, this->radius));
+	this->gravityLine.setOrigin(sf::Vector2f(this->radius, this->radius));
+	this->dragForceLine.setFillColor(sf::Color::Blue);
+	this->gravityLine.setFillColor(sf::Color::Yellow);
 }
 
 Cube::~Cube()
@@ -88,6 +119,7 @@ sf::Vector2f Cube::update()
 	this->position = newPos;
 	this->cube.setPosition(this->position);
 	this->cube.setRotation((180.0f / (float)M_PI) *atan2f(this->velocity.y, this->velocity.x));
+	updateLines();
 	return newPos;
 }
 

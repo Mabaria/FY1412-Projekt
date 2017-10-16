@@ -13,10 +13,14 @@ private:
 
 	sf::RectangleShape cube;
 	sf::Vector2f directionVec;
+	sf::RectangleShape gravityLine;
+	sf::RectangleShape dragForceLine;
 	sf::Font dataFont;
 	sf::Text dataText;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	void updateLines();
+
 public:
 	Cube(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed);
 	~Cube();
