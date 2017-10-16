@@ -16,11 +16,15 @@ private:
 	sf::Vector2f windSpeed;
 
 	sf::CircleShape sphere;
+	sf::RectangleShape gravityLine;
+	sf::RectangleShape magnusLine;
+	sf::RectangleShape dragForceLine;
 	sf::Font dataFont;
 	sf::Text dataText;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 	float ViscousTorque(); // Returns the angular acceleration due to viscous torque
+	void updateLines();
 public:
 
 	RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, ROUNDSPINDIRECTION spinDir, sf::Vector2f windSpeed);

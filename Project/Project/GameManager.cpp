@@ -116,7 +116,7 @@ void GameManager::update()
 	this->input->handleKeys();
 	if (this->activeProjectile != nullptr) {
 		this->activeProjectile->update();
-		if (this->activeProjectile->getPosition().y > 850) {
+		if (this->activeProjectile->getPosition().y > 850 || this->hill.getGlobalBounds().intersects(this->activeProjectile->getBoundingBox())) {
 			delete this->activeProjectile;
 			this->activeProjectile = nullptr;
 			
@@ -151,7 +151,7 @@ void GameManager::update()
 		this->selectedProjectileText.setString("Selected Projectile: Round, clockwise spin");
 	}
 	else if (selected == ARTILLERYSHELL) {
-		this->selectedProjectileText.setString("Selected Projectile: Artillery Shell");
+		this->selectedProjectileText.setString("Selected Projectile: Artillery Shell (unreliable in abnormal atmosphere)");
 	}
 
 

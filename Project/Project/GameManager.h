@@ -48,7 +48,7 @@ private:
 	void collisionDetection();
 	
 public:
-	GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), sf::Vector2f &windSpeed = sf::Vector2f(0.0f, -0.0f), float airDensity = 1.22f, float airViscosity = 0.00001827f);
+	GameManager(sf::Vector2f &gravity = sf::Vector2f(0.0f, 9.82f), sf::Vector2f &windSpeed = sf::Vector2f(50.0f, -0.0f), float airDensity = 1.22f, float airViscosity = 0.00001827f);
 	~GameManager();
 
 	void update();
