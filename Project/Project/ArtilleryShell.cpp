@@ -30,7 +30,7 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 	this->triangle.setOrigin(5.f / 3.f, 2.5f);
 	this->triangle.setPosition(this->position);
 	//this->directionVec=sf::Vector2f((this->position.x+2,5)-(this->position.x),((this->position.y-2.5)))
-	this->triangle.rotate(-atanf(this->velocity.y / this->velocity.x));
+	this->triangle.rotate((180.0f / 3.14159265358f) *-atan2f(this->velocity.y,this->velocity.x));
 
 
 }
@@ -44,7 +44,7 @@ void ArtilleryShell::draw(sf::RenderTarget & target, sf::RenderStates states) co
 	target.draw(this->triangle);
 }
 
-float ArtilleryShell::DragCoefficient()
+float ArtilleryShell::DragCoefficient() //Based on cd/mach graph from http://www.kevinboone.net/zom2.html "The G tables" the second graph
 {
 	float cd = -1;
 	float speed = sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2));
@@ -89,7 +89,7 @@ sf::Vector2f ArtilleryShell::update()
 	this->velocity = this->velocity + (acceleration*dt);
 	this->position = newPos;
 	this->triangle.setPosition(this->position);
-	this->triangle.setRotation(-atanf(this->velocity.y / this->velocity.x));
+	this->triangle.setRotation((180.0f / 3.14159265358f)*(-atan2f(this->velocity.y, this->velocity.x)));
 	return newPos;
 }
 
