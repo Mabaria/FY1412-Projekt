@@ -3,8 +3,8 @@
 #include <math.h>
 #include "Locator.h"
 
-#define ARTILLERYPROJMASS 80
-#define ARTILLERYPROJVELOCITY 150
+#define ARTILLERYPROJMASS 20
+#define ARTILLERYPROJVELOCITY 400
 #define ARTILLERYPROJRADIUS 0.40f
 //#define ROUNDPROJANGLEVELOCITY -0.00f 
 
@@ -38,7 +38,7 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 	this->triangle.setOrigin(5.f / 3.f, 2.5f);
 	this->triangle.setPosition(this->position);
 	//this->directionVec=sf::Vector2f((this->position.x+2,5)-(this->position.x),((this->position.y-2.5)))
-	this->triangle.rotate((180.0f / 3.14159265358f) *atan2f(this->velocity.y,this->velocity.x));
+	this->triangle.setRotation((180.0f / 3.14159265358f) *atan2f(this->velocity.y,this->velocity.x));
 
 
 }
@@ -50,6 +50,7 @@ ArtilleryShell::~ArtilleryShell()
 void ArtilleryShell::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(this->triangle);
+	target.draw(this->dataText);
 }
 
 float ArtilleryShell::DragCoefficient() //Based on cd/mach graph from http://www.kevinboone.net/zom2.html "The G tables" the second graph
@@ -62,7 +63,7 @@ float ArtilleryShell::DragCoefficient() //Based on cd/mach graph from http://www
 	}
 	else
 	{
-		cd = 0.41 * 340 - ((0.25 * 340 / 4)*speed);
+		cd = 0.41 - ((0.25 / 4)*(speed/340));
 	}
 
 	return cd;

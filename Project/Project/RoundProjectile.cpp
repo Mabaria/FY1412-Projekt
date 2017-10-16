@@ -5,8 +5,8 @@
 
 #define ROUNDPROJMASS 200
 #define ROUNDPROJVELOCITY 160
-#define ROUNDPROJRADIUS 0.40f
-#define ROUNDPROJANGLEVELOCITY 50.00f 
+#define ROUNDPROJRADIUS 0.30f
+#define ROUNDPROJANGLEVELOCITY 40.00f 
 
 RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, ROUNDSPINDIRECTION spinDir, sf::Vector2f windSpeed) {
 	this->mass = ROUNDPROJMASS;
@@ -25,10 +25,11 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
 
+	this->sphere.setOrigin(sf::Vector2f(this->radius / 2.0f, this->radius / 2.0f));
 	this->sphere.setFillColor(sf::Color::Black);
 	this->sphere.setRadius(5.0f);
 	this->sphere.setPosition(this->position);
-	this->sphere.setOrigin(sf::Vector2f(ROUNDPROJRADIUS / 2, ROUNDPROJRADIUS / 2));
+	this->sphere.setOrigin(sf::Vector2f(ROUNDPROJRADIUS, ROUNDPROJRADIUS));
 
 	this->dataFont.loadFromFile("Resources\\Fonts\\arial.ttf");
 	this->dataText.setFont(this->dataFont);
@@ -37,6 +38,17 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->dataText.setString("Drag force: 0");
 	this->dataText.setOrigin(sf::Vector2f(this->dataText.getGlobalBounds().left + this->dataText.getGlobalBounds().width, 0.0f));
 	this->dataText.setPosition(sf::Vector2f(1000.0f, 200.0f));
+
+
+	this->gravityLine.setPosition(this->position);
+	this->magnusLine.setPosition(this->position);
+	this->dragForceLine.setPosition(this->position);
+	this->dragForceLine.setOrigin(sf::Vector2f(this->radius, this->radius));
+	this->magnusLine.setOrigin(sf::Vector2f(this->radius, this->radius));
+	this->gravityLine.setOrigin(sf::Vector2f(this->radius, this->radius));
+	this->dragForceLine.setFillColor(sf::Color::Blue);
+	this->magnusLine.setFillColor(sf::Color::Red);
+	this->gravityLine.setFillColor(sf::Color::Yellow);
 }
 
 RoundProjectile::~RoundProjectile() {
@@ -46,6 +58,9 @@ RoundProjectile::~RoundProjectile() {
 void RoundProjectile::draw(sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(this->sphere);
 	target.draw(this->dataText);
+	target.draw(this->gravityLine);
+	target.draw(this->magnusLine);
+	target.draw(this->dragForceLine);
 }
 
 float RoundProjectile::ViscousTorque()
@@ -55,6 +70,37 @@ float RoundProjectile::ViscousTorque()
 	// Angular acceleration = torque / I
 	float angAcc = vTorque / this->momOfInertia;
 	return angAcc;
+}
+
+void RoundProjectile::updateLines() {
+	// This is a quick and dirty implementation, a good one would only calculate these
+	// values once but at this point I just want a nice working solution
+	this->gravityLine.setPosition(this->position);
+	this->magnusLine.setPosition(this->position);
+	this->dragForceLine.setPosition(this->position);
+	sf::Vector2f gravityForceVector = this->gravity;
+	sf::Vector2f magnusForceVector = this->MagnusForce();
+	sf::Vector2f dragForceVector = this->DragForce(this->DragCoefficient(this->Reynold()));
+	float totalVectorLength = (sqrt(pow(gravityForceVector.x, 2) + pow(gravityForceVector.y, 2)) +
+							   sqrt(pow(magnusForceVector.x, 2) + pow(magnusForceVector.y, 2)) +
+							   sqrt(pow(dragForceVector.x, 2) + pow(dragForceVector.y, 2)));
+
+	float gravityLineLength = sqrt(pow(gravityForceVector.x, 2) + pow(gravityForceVector.y, 2)) / totalVectorLength;
+	float magnusLineLength = sqrt(pow(magnusForceVector.x, 2) + pow(magnusForceVector.y, 2)) / totalVectorLength;
+	float dragLineLength = sqrt(pow(dragForceVector.x, 2) + pow(dragForceVector.y, 2)) / totalVectorLength;
+
+	this->gravityLine.setSize(sf::Vector2f(gravityLineLength * 200.0f, 2));
+	this->magnusLine.setSize(sf::Vector2f(magnusLineLength * 200.0f, 2));
+	this->dragForceLine.setSize(sf::Vector2f(dragLineLength * 200.0f, 2));
+
+	this->gravityLine.setRotation((180.0f / M_PI) * atan2f(gravityForceVector.y, gravityForceVector.x));
+	this->magnusLine.setRotation((180.0f / M_PI) * atan2f(magnusForceVector.y, magnusForceVector.x));
+	this->dragForceLine.setRotation((180.0f / M_PI) * atan2f(dragForceVector.y, dragForceVector.x));
+
+
+	
+
+
 }
 
  float RoundProjectile::Reynold() {
@@ -129,6 +175,7 @@ sf::Vector2f RoundProjectile::update() {
 	this->angleVelocity = this->angleVelocity + dt * this->ViscousTorque();
 	this->position = newPos;
 	this->sphere.setPosition(this->position);
+	updateLines();
 	return newPos;
 }
 
