@@ -153,6 +153,9 @@ void GameManager::update()
 	else if (selected == ARTILLERYSHELL) {
 		this->selectedProjectileText.setString("Selected Projectile: Artillery Shell");
 	}
+	else if (selected == CUBE) {
+		this->selectedProjectileText.setString("Selected Projectile: CUBE");
+	}
 
 
 	if (this->gameOver) {
