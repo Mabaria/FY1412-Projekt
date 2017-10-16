@@ -22,6 +22,14 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 	this->airViscosity = airViscosity;
 	this->windSpeed = windSpeed;
 
+	this->dataFont.loadFromFile("Resources\\Fonts\\arial.ttf");
+	this->dataText.setFont(this->dataFont);
+	this->dataText.setCharacterSize(12);
+
+	this->dataText.setString("Drag force: 0");
+	this->dataText.setOrigin(sf::Vector2f(this->dataText.getGlobalBounds().left + this->dataText.getGlobalBounds().width, 0.0f));
+	this->dataText.setPosition(sf::Vector2f(1000.0f, 200.0f));
+
 	this->triangle.setPointCount(3);
 	this->triangle.setPoint(0, sf::Vector2f(0.f, 0.f));
 	this->triangle.setPoint(1, sf::Vector2f(0.f, 10.f));
@@ -76,6 +84,9 @@ sf::Vector2f ArtilleryShell::TotalAcceleration()
 {
 	sf::Vector2f dragForce = this->DragForce(this->DragCoefficient());
 	sf::Vector2f forceVector = dragForce + this->gravity;
+	this->dataText.setString("Drag force: " + std::to_string((int)round(sqrt(pow(dragForce.x, 2) + pow(dragForce.y, 2)))) +
+		"\nCD: " + std::to_string(this->DragCoefficient()) +
+		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))));
 
 	return sf::Vector2f((forceVector.x / this->mass), (forceVector.y / this->mass));
 }
