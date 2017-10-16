@@ -92,6 +92,8 @@ GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &windSpeed, float ai
 	this->ground.setFillColor(sf::Color(1,142,14));
 	this->ground.setPosition(0, 850);
 	this->ground.setSize(sf::Vector2f(1440, 50.0f));
+
+	this->player2.setTurn(false);
 }
 
 GameManager::~GameManager()
@@ -109,9 +111,13 @@ void GameManager::update()
 			
 			if (this->turn == GREEN) {
 				this->turn = RED;
+				this->player1.setTurn(false);
+				this->player2.setTurn(true);
 			}
 			else {
 				this->turn = GREEN;
+				this->player1.setTurn(true);
+				this->player2.setTurn(false);
 			}
 		}
 		else if (this->turn == GREEN && this->player2.collision(this->activeProjectile->getBoundingBox())) {

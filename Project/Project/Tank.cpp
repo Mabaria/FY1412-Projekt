@@ -64,6 +64,7 @@ Tank::Tank(sf::Vector2f pos, sf::Color color, bool facingRight)
 	}
 
 	this->selectedProj = ROUNDLEFTSPIN;
+	this->myTurn = true;
 }
 
 
@@ -117,19 +118,21 @@ bool Tank::collision(sf::FloatRect &projBounds)
 
 void Tank::shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float airDensity, float airViscosity, Projectile* &activeProjectile)
 {
-	if (activeProjectile == nullptr) {
-		sf::Vector2f direction;
-		if(this->facingRight)
-			direction = sf::Vector2f(cos(this->cannon.getRotation()*3.14159265358f/180.0f), sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
-		else
-			direction = sf::Vector2f(-cos(this->cannon.getRotation()*3.14159265358f / 180.0f), -sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
+	if (myTurn) {
+		if (activeProjectile == nullptr) {
+			sf::Vector2f direction;
+			if (this->facingRight)
+				direction = sf::Vector2f(cos(this->cannon.getRotation()*3.14159265358f / 180.0f), sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
+			else
+				direction = sf::Vector2f(-cos(this->cannon.getRotation()*3.14159265358f / 180.0f), -sin(this->cannon.getRotation()*3.14159265358f / 180.0f));
 
-		if(this->selectedProj == ROUNDLEFTSPIN)
-			activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, ROUNDSPINLEFT, windSpeed);
-		else if(this->selectedProj == ROUNDRIGHTSPIN)
-			activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, ROUNDSPINRIGHT, windSpeed);
-		else if (this->selectedProj == ARTILLERYSHELL) {
-			activeProjectile = new ArtilleryShell(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, windSpeed);
+			if (this->selectedProj == ROUNDLEFTSPIN)
+				activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, ROUNDSPINLEFT, windSpeed);
+			else if (this->selectedProj == ROUNDRIGHTSPIN)
+				activeProjectile = new RoundProjectile(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, ROUNDSPINRIGHT, windSpeed);
+			else if (this->selectedProj == ARTILLERYSHELL) {
+				activeProjectile = new ArtilleryShell(airDensity, airViscosity, this->cannon.getPosition(), gravity, direction, windSpeed);
+			}
 		}
 	}
 }
@@ -137,6 +140,11 @@ void Tank::shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float
 PROJECTILETYPE Tank::getSelectedProjectile()
 {
 	return this->selectedProj;
+}
+
+void Tank::setTurn(bool turnState)
+{
+	this->myTurn = turnState;
 }
 
 void Tank::changeProjectile()

@@ -23,6 +23,7 @@ private:
 	PROJECTILETYPE selectedProj;
 
 	bool facingRight;
+	bool myTurn;
 
 	sf::Font dataFont;
 	sf::Text dataText;
@@ -38,6 +39,7 @@ public:
 	void changeProjectile();
 	void shootProjectile(sf::Vector2f &gravity, sf::Vector2f &windSpeed, float airDensity, float airViscosity, Projectile* &activeProjectile);
 	PROJECTILETYPE getSelectedProjectile();
+	void setTurn(bool turnState);
 };
 
 #endif
