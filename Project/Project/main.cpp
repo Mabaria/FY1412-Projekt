@@ -3,6 +3,16 @@
 #include "GameTime.h"
 #include "Locator.h"
 
+#define WINDX 5.0f
+#define WINDY 0.0f
+#define GRAVITYX 0.0f
+#define GRAVITYY 9.82f
+#define AIRDENSITY 1.22f
+#define AIRVISCOSITY 0.00001827f
+
+
+
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1440, 900), "Artilleri");
@@ -15,7 +25,7 @@ int main()
 
 	srand(time(NULL));
 
-	GameManager gm;
+	GameManager gm(sf::Vector2f(GRAVITYX, GRAVITYY), sf::Vector2f(WINDX, WINDY), AIRDENSITY, AIRVISCOSITY);
 
 	while (window.isOpen())
 	{
