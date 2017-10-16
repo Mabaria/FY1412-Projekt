@@ -8,6 +8,12 @@
 #define CUBERADIUS 0.40f
 
 
+void Cube::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+	target.draw(this->cube);
+	target.draw(this->dataText);
+}
+
 Cube::Cube(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed)
 {
 	this->mass = CUBEMASS;
