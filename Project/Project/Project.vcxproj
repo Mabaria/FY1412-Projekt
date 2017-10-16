@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="ArtilleryShell.cpp" />
     <ClCompile Include="ChangeProjectileCommand.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="InputHandler.cpp" />

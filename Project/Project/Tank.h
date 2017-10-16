@@ -3,12 +3,14 @@
 #define TANK_H
 #include "RoundProjectile.h"
 #include "ArtilleryShell.h"
+#include "Cube.h"
 #include <SFML\Graphics.hpp>
 
 enum PROJECTILETYPE {
 	ROUNDLEFTSPIN = 0,
 	ROUNDRIGHTSPIN = 1,
 	ARTILLERYSHELL = 2,
+	CUBE = 3,
 	TOTALPROJTYPES // If new projectile are added this NEEDS to be defined last
 };
 
