@@ -13,6 +13,8 @@ private:
 
 	sf::ConvexShape triangle;
 	sf::Vector2f directionVec;
+	sf::Font dataFont;
+	sf::Text dataText;
 
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
