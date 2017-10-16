@@ -46,26 +46,9 @@ Cube::~Cube()
 
 }
 
-float Cube::Reynold()
+float Cube::DragCoefficient()//https://forum.solidworks.com/thread/67677
 {
-	return ((this->airDensity*this->radius*(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2)))) / this->airViscosity);
-}
-
-float Cube::DragCoefficient(float re)//https://www.calpoly.edu/~kshollen/ME347/Handouts/Friction_Drag_Coef.pdf
-{
-	float cd = 0.f;
-	if (re < 500000.f)
-	{
-		cd = 1.328f*pow(re, -0.5f);
-	}
-	else if (re < 1000000000.f)
-	{
-		cd = ((0.455f / (pow(log(re), 2.58f))) - (1700 / re));
-	}
-	else
-		cd = (pow(1.89f - (1.62f*log(0.015 / this->radius)), -2.5f));
-
-	return cd;
+	return 2.0f;
 }
 
 sf::Vector2f Cube::DragForce(float cd)
@@ -81,11 +64,10 @@ sf::Vector2f Cube::DragForce(float cd)
 
 sf::Vector2f Cube::TotalAcceleration()
 {
-	sf::Vector2f dragForce = this->DragForce(this->DragCoefficient(this->Reynold()));
+	sf::Vector2f dragForce = this->DragForce(this->DragCoefficient());
 	sf::Vector2f forceVector = dragForce + this->gravity;
 	this->dataText.setString("Drag force: " + std::to_string((int)round(sqrt(pow(dragForce.x, 2) + pow(dragForce.y, 2)))) +
-		"\nReynold: " + std::to_string((int)round(this->Reynold())) +
-		"\nCD: " + std::to_string(this->DragCoefficient(this->Reynold())) +
+		"\nCD: " + std::to_string(this->DragCoefficient()) +
 		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))));
 	// F/m = a, apply to forceVector and add gravity acceleration
 	return sf::Vector2f((forceVector.x / this->mass), (forceVector.y / this->mass));

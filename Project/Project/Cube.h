@@ -20,8 +20,7 @@ private:
 public:
 	Cube(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, sf::Vector2f windSpeed);
 	~Cube();
-	float Reynold();
-	float DragCoefficient(float re);
+	float DragCoefficient();
 	sf::Vector2f DragForce(float cd);
 	sf::Vector2f TotalAcceleration();
 	sf::Vector2f update();
