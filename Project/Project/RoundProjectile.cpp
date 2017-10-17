@@ -65,6 +65,8 @@ void RoundProjectile::draw(sf::RenderTarget & target, sf::RenderStates states) c
 
 float RoundProjectile::ViscousTorque()
 {
+	// http://apl.aip.org/resource/1/applab/v89/i18/p181908_s1
+	// May be incorrect after further research, loses validity at high Reynolds numbers
 
 	float vTorque = -8 * M_PI * pow(this->radius, 3) * this->airViscosity * this->angleVelocity;
 	// Angular acceleration = torque / I
@@ -74,7 +76,7 @@ float RoundProjectile::ViscousTorque()
 
 void RoundProjectile::updateLines() {
 	// This is a quick and dirty implementation, a good one would only calculate these
-	// values once but at this point I just want a nice working solution
+	// values once but at this point I just want a working solution
 	this->gravityLine.setPosition(this->position + sf::Vector2f(5, 5));
 	this->magnusLine.setPosition(this->position + sf::Vector2f(5, 5));
 	this->dragForceLine.setPosition(this->position + sf::Vector2f(5, 5));
@@ -159,15 +161,15 @@ sf::Vector2f RoundProjectile::TotalAcceleration() {
 		"\nCD: " + std::to_string(this->DragCoefficient(this->Reynold())) +
 		"\nVelocity: " + std::to_string(sqrt(pow(this->velocity.x, 2) + pow(this->velocity.y, 2))) +
 		"\nAngleVelocity: " + std::to_string(this->angleVelocity));
-	// F/m = a, apply to forceVector and add gravity acceleration
+	// F/m = a, apply to forceVector
 	return sf::Vector2f((forceVector.x / this->mass), (forceVector.y / this->mass)); 
 }
 
 sf::Vector2f RoundProjectile::update() {
 	sf::Vector2f acceleration = this->TotalAcceleration(); // This function calls and calculates all forces currently affecting the object and returns an acceleration vector
-	// r = r0 + vt + at^2 / 2
-	float dt = 3.0f * Locator::getGameTime()->getDeltaTime();
 
+	float dt = 3.0f * Locator::getGameTime()->getDeltaTime();
+	// r = r0 + vt + at^2 / 2
 	sf::Vector2f newPos = sf::Vector2f((this->position.x + (this->velocity.x * dt) + ((acceleration.x * pow(dt, 2)) / 2)),
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
 	// v = v0 + at

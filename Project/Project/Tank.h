@@ -11,7 +11,7 @@ enum PROJECTILETYPE {
 	ROUNDRIGHTSPIN = 1,
 	ARTILLERYSHELL = 2,
 	CUBE = 3,
-	TOTALPROJTYPES // If new projectile are added this NEEDS to be defined last
+	TOTALPROJTYPES // If new projectiles are added this NEEDS to be defined last
 };
 
 class Tank : public sf::Drawable
