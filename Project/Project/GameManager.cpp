@@ -16,6 +16,7 @@ void GameManager::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	target.draw(player1);
 	target.draw(this->player2);
 	target.draw(this->selectedProjectileText);
+	target.draw(this->windText);
 	if (this->activeProjectile != nullptr) {
 		target.draw(*this->activeProjectile);
 	}
@@ -89,6 +90,24 @@ GameManager::GameManager(sf::Vector2f &gravity,sf::Vector2f &windSpeed, float ai
 	this->selectedProjectileText.setString("Selected Projectile: Round, counter-clockwise spin");
 	this->selectedProjectileText.setOrigin(this->endText.getGlobalBounds().left + this->endText.getGlobalBounds().width / 2, this->endText.getGlobalBounds().top + this->endText.getGlobalBounds().height / 2);
 	this->selectedProjectileText.setPosition(sf::Vector2f(1200, 1320));
+
+	this->windText.setFont(font);
+	this->windText.setCharacterSize(12);
+	std::string windDirection;
+	if (this->windSpeed.x > 0) {
+		windDirection = "Right";
+	}
+	else if (this->windSpeed.x < 0) {
+		windDirection = "Left";
+	}
+	else
+		windDirection = "No wind";
+
+	int totalWindSpeed = (int)this->windSpeed.x;
+	this->windText.setString("Wind speed: " + std::to_string(totalWindSpeed) + "m/s" +
+		"\nDirection: " + windDirection);
+	this->windText.setOrigin(this->endText.getGlobalBounds().left + this->endText.getGlobalBounds().width / 2, this->endText.getGlobalBounds().top + this->endText.getGlobalBounds().height / 2);
+	this->windText.setPosition(sf::Vector2f(1400, 520));
 
 	this->ground.setFillColor(sf::Color(1,142,14));
 	this->ground.setPosition(0, 850);

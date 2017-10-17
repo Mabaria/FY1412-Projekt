@@ -24,6 +24,7 @@ private:
 	sf::Text endText;
 	sf::Font font;
 	sf::Text selectedProjectileText;
+	sf::Text windText;
 
 	Projectile* activeProjectile;
 

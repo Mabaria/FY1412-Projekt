@@ -6,7 +6,7 @@
 #define ROUNDPROJMASS 100
 #define ROUNDPROJVELOCITY 160
 #define ROUNDPROJRADIUS 0.30f
-#define ROUNDPROJANGLEVELOCITY 40.00f 
+#define ROUNDPROJANGLEVELOCITY 70.00f 
 
 RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vector2f position, sf::Vector2f gravity, sf::Vector2f direction, ROUNDSPINDIRECTION spinDir, sf::Vector2f windSpeed) {
 	this->mass = ROUNDPROJMASS;
@@ -174,7 +174,7 @@ sf::Vector2f RoundProjectile::update() {
 									   (this->position.y + (this->velocity.y * dt) + ((acceleration.y * pow(dt, 2)) / 2)) );
 	// v = v0 + at
 	this->velocity = this->velocity + acceleration * dt;
-	this->angleVelocity = this->angleVelocity + dt * this->ViscousTorque();
+	this->angleVelocity = this->angleVelocity + dt * this->ViscousTorque(); // ViscousTorque returns angular acceleration due to viscosity
 	this->position = newPos;
 	this->sphere.setPosition(this->position);
 	updateLines();
