@@ -3,7 +3,7 @@
 #include <math.h>
 #include "Locator.h"
 
-#define ROUNDPROJMASS 200
+#define ROUNDPROJMASS 100
 #define ROUNDPROJVELOCITY 160
 #define ROUNDPROJRADIUS 0.30f
 #define ROUNDPROJANGLEVELOCITY 40.00f 
@@ -25,7 +25,7 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->airDensity = airDensity;
 	this->airViscosity = airViscosity;
 
-	this->sphere.setOrigin(sf::Vector2f(this->radius / 2.0f, this->radius / 2.0f));
+	this->sphere.setOrigin(sf::Vector2f(5.0f, 5.0f));
 	this->sphere.setFillColor(sf::Color::Black);
 	this->sphere.setRadius(5.0f);
 	this->sphere.setPosition(this->position);
@@ -40,12 +40,12 @@ RoundProjectile::RoundProjectile(float airDensity, float airViscosity, sf::Vecto
 	this->dataText.setPosition(sf::Vector2f(1000.0f, 200.0f));
 
 
-	this->gravityLine.setPosition(this->position);
-	this->magnusLine.setPosition(this->position);
-	this->dragForceLine.setPosition(this->position);
-	this->dragForceLine.setOrigin(sf::Vector2f(this->radius, this->radius));
+	this->gravityLine.setPosition(this->position + sf::Vector2f(5, 5));
+	this->magnusLine.setPosition(this->position + sf::Vector2f(5, 5));
+	this->dragForceLine.setPosition(this->position + sf::Vector2f(5, 5));
+	/*this->dragForceLine.setOrigin(sf::Vector2f(this->radius, this->radius));
 	this->magnusLine.setOrigin(sf::Vector2f(this->radius, this->radius));
-	this->gravityLine.setOrigin(sf::Vector2f(this->radius, this->radius));
+	this->gravityLine.setOrigin(sf::Vector2f(this->radius, this->radius));*/
 	this->dragForceLine.setFillColor(sf::Color::Blue);
 	this->magnusLine.setFillColor(sf::Color::Red);
 	this->gravityLine.setFillColor(sf::Color::Yellow);
@@ -75,9 +75,9 @@ float RoundProjectile::ViscousTorque()
 void RoundProjectile::updateLines() {
 	// This is a quick and dirty implementation, a good one would only calculate these
 	// values once but at this point I just want a nice working solution
-	this->gravityLine.setPosition(this->position);
-	this->magnusLine.setPosition(this->position);
-	this->dragForceLine.setPosition(this->position);
+	this->gravityLine.setPosition(this->position + sf::Vector2f(5, 5));
+	this->magnusLine.setPosition(this->position + sf::Vector2f(5, 5));
+	this->dragForceLine.setPosition(this->position + sf::Vector2f(5, 5));
 	sf::Vector2f gravityForceVector = this->gravity;
 	sf::Vector2f magnusForceVector = this->MagnusForce();
 	sf::Vector2f dragForceVector = this->DragForce(this->DragCoefficient(this->Reynold()));

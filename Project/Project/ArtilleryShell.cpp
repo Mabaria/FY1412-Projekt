@@ -41,16 +41,48 @@ ArtilleryShell::ArtilleryShell(float airDensity, float airViscosity, sf::Vector2
 	this->triangle.setRotation((180.0f / 3.14159265358f) *atan2f(this->velocity.y,this->velocity.x));
 
 
+	this->gravityLine.setPosition(this->position);
+	this->dragForceLine.setPosition(this->position);
+
+	this->dragForceLine.setFillColor(sf::Color::Blue);
+	this->gravityLine.setFillColor(sf::Color::Yellow);
+
+
 }
 
-ArtilleryShell::~ArtilleryShell()
-{
+ArtilleryShell::~ArtilleryShell() {
+
+
+
 }
 
 void ArtilleryShell::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(this->triangle);
 	target.draw(this->dataText);
+	target.draw(this->dragForceLine);
+	target.draw(this->gravityLine);
+}
+
+void ArtilleryShell::updateLines() {
+
+	this->gravityLine.setPosition(this->position);
+	this->dragForceLine.setPosition(this->position);
+
+	sf::Vector2f gravityForceVector = this->gravity;
+	sf::Vector2f dragForceVector = this->DragForce(this->DragCoefficient());
+
+	float totalVectorLength = (sqrt(pow(gravityForceVector.x, 2) + pow(gravityForceVector.y, 2)) +
+		sqrt(pow(dragForceVector.x, 2) + pow(dragForceVector.y, 2)));
+
+	float gravityLineLength = sqrt(pow(gravityForceVector.x, 2) + pow(gravityForceVector.y, 2)) / totalVectorLength;
+	float dragLineLength = sqrt(pow(dragForceVector.x, 2) + pow(dragForceVector.y, 2)) / totalVectorLength;
+
+	this->gravityLine.setSize(sf::Vector2f(gravityLineLength * 200.0f, 2));
+	this->dragForceLine.setSize(sf::Vector2f(dragLineLength * 200.0f, 2));
+
+	this->gravityLine.setRotation((180.0f / M_PI) * atan2f(gravityForceVector.y, gravityForceVector.x));
+	this->dragForceLine.setRotation((180.0f / M_PI) * atan2f(dragForceVector.y, dragForceVector.x));
 }
 
 float ArtilleryShell::DragCoefficient() //Based on cd/mach graph from http://www.kevinboone.net/zom2.html "The G tables" the second graph
@@ -103,6 +135,7 @@ sf::Vector2f ArtilleryShell::update()
 	this->position = newPos;
 	this->triangle.setPosition(this->position);
 	this->triangle.setRotation((180.0f / 3.14159265358f)*(atan2f(this->velocity.y, this->velocity.x)));
+	updateLines();
 	return newPos;
 }
 

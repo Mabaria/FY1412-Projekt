@@ -17,8 +17,8 @@ private:
 
 	sf::CircleShape sphere;
 	sf::RectangleShape gravityLine;
-	sf::RectangleShape magnusLine;
 	sf::RectangleShape dragForceLine;
+	sf::RectangleShape magnusLine;
 	sf::Font dataFont;
 	sf::Text dataText;
 
